@@ -1,0 +1,6 @@
+<% if @user.nil? %>
+  User not found.
+<% elsif %>
+  id: <%= @user.id %> </br>
+  email: <%= @user.email %>
+<% end %>
