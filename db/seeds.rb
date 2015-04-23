@@ -20,5 +20,5 @@ users = User.order(:created_at).take(6)
 50.times do
   title = "What's the best #{Faker::Hacker.noun} for #{Faker::Hacker.ingverb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun.pluralize}"
   description = Faker::Lorem.sentence(5)
-  users.each { |user| user.questions.create!(title: title, description: description) }
+  users.sample.questions.create!(title: title, description: description)
 end

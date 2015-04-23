@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'users' => 'users#list'
   get 'users/:id' => 'users#show', as: :user
 
+  get 'questions' => 'questions#list'
+  get 'questions/:id' => 'questions#show', as: :question
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
