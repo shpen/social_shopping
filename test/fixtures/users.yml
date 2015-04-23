@@ -11,5 +11,6 @@
 #  column: value
 
 one:
+  username: "example"
   email: "email@example.com"
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
