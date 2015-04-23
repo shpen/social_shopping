@@ -5,3 +5,10 @@
 <ul class="answers">
   <%= render @question.answers %>
 </ul>
+
+<% if current_user == @question.user %>
+  <%= link_to 'Edit', edit_question_path(@question) %> </br>
+  <%= link_to 'Delete', @question, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% elsif %>
+  <%= link_to 'Submit Answer', new_answer_path %>
+<% end %>

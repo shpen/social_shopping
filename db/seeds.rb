@@ -26,5 +26,5 @@ end
 questions = Question.all
 40.times do
   content = "I think #{Faker::Hacker.noun} is the best because it is the most #{Faker::Hacker.adjective}"
-  users.sample.answers.create!(content: content, question_id: questions.sample.id)
+  users.sample.answers.create!(content: content, question: questions.sample)
 end

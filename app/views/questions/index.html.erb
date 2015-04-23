@@ -1,0 +1,11 @@
+<h1>Questions</h1>
+
+<%= button_to 'Post New Question', new_question_path, method: :get %>
+
+<%= will_paginate %>
+
+<ul>
+  <%= render @questions %>
+</ul>
+
+<%= will_paginate %>

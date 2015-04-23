@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  def list
+  def index
     @users = User.paginate(page: params[:page])
   end
 

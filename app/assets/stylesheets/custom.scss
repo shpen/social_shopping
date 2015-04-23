@@ -158,7 +158,7 @@ input {
 
 .alert-notice {
   // Convert from Devise to Bootstrap
-  @extend .alert-warning
+  @extend .alert-info
 }
 
 /* miscellaneous */
