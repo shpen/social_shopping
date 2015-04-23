@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
     }
 
   has_many :questions
+  has_many :answers
 
   # Override authentication to use email or username
   def self.find_first_by_auth_conditions(warden_conditions)
