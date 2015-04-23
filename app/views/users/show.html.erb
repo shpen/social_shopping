@@ -1,7 +1,18 @@
-<% if @user.nil? %>
-  User not found.
-<% elsif %>
-  id: <%= @user.id %> </br>
-  username: <%= @user.username %> </br>
-  email: <%= @user.email %>
-<% end %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= @user.username %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @user.questions.any? %>
+      <h3>Questions (<%= @user.questions.count %>)</h3>
+      <ul class="questions">
+        <%= render @questions %>
+      </ul>
+      <%= will_paginate @questions %>
+    <% end %>
+  </div>
+</div>
