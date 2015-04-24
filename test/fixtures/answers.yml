@@ -2,10 +2,10 @@
 
 one:
   content: "Answer one content"
-  question_id: one
-  user_id: two
+  question: one
+  user: two
 
 two:
   content: "Answer two content"
-  question_id: two
-  user_id: one
+  question: two
+  user: one

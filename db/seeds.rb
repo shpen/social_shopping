@@ -25,6 +25,11 @@ end
 
 questions = Question.all
 40.times do
-  content = "I think #{Faker::Hacker.noun} is the best because it is the most #{Faker::Hacker.adjective}"
-  users.sample.answers.create!(content: content, question: questions.sample)
+  content = "I think #{Faker::Hacker.noun.pluralize} are the best because they are the most #{Faker::Hacker.adjective}"
+
+  # Because we cannot answer our own questions, get two different users
+  user_one = users.sample
+  until user_one != (user_two = users.sample) do end
+    
+  user_one.answers.create!(content: content, question: user_two.questions.sample)
 end

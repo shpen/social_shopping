@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
@@ -17,26 +17,25 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  # GET /questions/1/edit
-  def edit
-  end
-
   # POST /questions
   def create
-    @question = Question.new(question_params)
-    @question.user = current_user
+    @question = current_user.questions.build(question_params)
 
     if @question.save
-      redirect_to @question, success: 'Question was successfully created.'
+      redirect_to @question, flash: { success: 'Question was successfully created.' }
     else
       render :new
     end
   end
 
+  # GET /questions/1/edit
+  def edit
+  end
+
   # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
-      redirect_to @question, notice: 'Question was successfully updated.'
+      redirect_to @question, flash: { success: 'Question was successfully updated.' }
     else
       render :edit
     end
@@ -45,7 +44,7 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   def destroy
     @question.destroy
-    redirect_to questions_path, notice: 'Question was successfully destroyed.'
+    redirect_to questions_url, flash: { success: 'Question was successfully destroyed.' }
   end
 
   private
@@ -63,8 +62,7 @@ class QuestionsController < ApplicationController
     def check_user_ownership
       @question = current_user.questions.find_by(id: params[:id])
       if @question.nil?
-        flash[:danger] = 'You do not have permission to do that.'
-        redirect_to request.referrer || root_url
+        redirect_to(request.referrer || root_url, flash: { danger: 'You do not have permission to do that.' })
       end
     end
 end

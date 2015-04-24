@@ -12,5 +12,6 @@ class UsersControllerTest < ActionController::TestCase
   test "should get all users" do
     get :index
     assert_response :success
+    assert_not_nil assigns(:users)
   end
 end

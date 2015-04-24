@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :questions
+  has_many :answers
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,9 +14,6 @@ class User < ActiveRecord::Base
     :uniqueness => {
       :case_sensitive => false
     }
-
-  has_many :questions
-  has_many :answers
 
   # Override authentication to use email or username
   def self.find_first_by_auth_conditions(warden_conditions)
