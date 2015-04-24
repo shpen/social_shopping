@@ -1,4 +1,4 @@
-<li id="answer-<%= answer.id %>" <%= 'style=background-color:#efe' if answer.id == params[:id].to_i %> >
+<li id="answer-<%= answer.id %>">
   <div class="content"><%= answer.content %></div>
   <div class="timestamp">Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= link_to answer.user.username, user_path(answer.user) %>.</div>
 
