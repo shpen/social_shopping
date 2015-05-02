@@ -4,7 +4,7 @@ class AnswerTest < ActiveSupport::TestCase
   def setup
     @user = users(:one)
     @question = questions(:two)
-    @answer = @user.answers.build(question: @question, content: "Content")
+    @answer = @user.answers.build(question: @question, content: "Content", link: "http://www.link.com")
   end
 
   test "should be valid" do
@@ -18,6 +18,16 @@ class AnswerTest < ActiveSupport::TestCase
 
   test "content should be present" do
     @answer.content = "    "
+    assert_not @answer.valid?
+  end
+
+  test "link should be present" do
+    @answer.link = "  "
+    assert_not @answer.valid?
+  end
+
+  test "link should be valid" do
+    @answer.link = "wrong format"
     assert_not @answer.valid?
   end
 

@@ -26,7 +26,7 @@ class AnswersControllerTest < ActionController::TestCase
 
   test "should redirect create when not logged in" do
     assert_no_difference 'Answer.count' do
-      post :create, question_id: @question, answer: { content: "Content" }
+      post :create, question_id: @question, answer: { content: "Content", link: "http://www.link.com" }
     end
     assert_redirected_to new_user_session_url
   end
@@ -62,7 +62,7 @@ class AnswersControllerTest < ActionController::TestCase
   test "should show create when logged in" do
     sign_in @user
     assert_difference 'Answer.count' do
-      post :create, question_id: @question, answer: { content: "Content" }
+      post :create, question_id: @question, answer: { content: "Content", link: "http://www.link.com" }
     end
     assert_redirected_to question_answer_url(@question, Answer.last)
   end

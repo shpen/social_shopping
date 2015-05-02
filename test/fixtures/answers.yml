@@ -2,10 +2,12 @@
 
 one:
   content: "Answer one content"
+  link: "http://www.url1.com"
   question: one
   user: two
 
 two:
   content: "Answer two content"
+  link: "http://www.url2.com"
   question: two
   user: one
