@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     addressable (2.3.8)
     ansi (1.5.0)
     arel (6.0.0)
@@ -196,6 +198,9 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     shellany (0.0.1)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     slop (3.6.0)
     sprockets (3.0.1)
       rack (~> 1.0)
@@ -235,6 +240,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 3.4)
   bootstrap-sass
   bootstrap-will_paginate (= 0.0.10)
   byebug
@@ -254,6 +260,7 @@ DEPENDENCIES
   rails_12factor (= 0.0.2)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simple_form
   sqlite3
   turbolinks
   tzinfo-data

@@ -66,7 +66,7 @@ class QuestionsControllerTest < ActionController::TestCase
   test "should show create when logged in" do
     sign_in @user
     assert_difference 'Question.count' do
-      post :create, question: { title: 'Title' }
+      post :create, question: { title: 'Title', tag_list: "tag" }
     end
     assert_redirected_to Question.last
   end

@@ -23,4 +23,9 @@ class QuestionTest < ActiveSupport::TestCase
     @question.description = ""
     assert @question.valid?
   end
+
+  test "tag_list should be present" do
+    @question.tag_list = "  "
+    assert_not @question.valid?
+  end
 end
