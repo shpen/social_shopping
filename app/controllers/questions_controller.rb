@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_tags, only: [:index, :show_tag]
 
   # GET /questions
   def index
@@ -47,10 +48,19 @@ class QuestionsController < ApplicationController
     redirect_to questions_url, flash: { success: 'Question was successfully destroyed.' }
   end
 
+  # GET /tag/laptops
+  def show_tag
+    @questions = Question.tagged_with(params[:tag]).paginate(page: params[:page])
+    render :index
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+    end
+
+    def set_tags
+      @tags = Question.all_tags
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

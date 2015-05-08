@@ -18,9 +18,13 @@ end
 
 users = User.all
 20.times do
-  title = "What's the best #{Faker::Hacker.noun} for #{Faker::Hacker.ingverb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun.pluralize}"
+  noun = Faker::Hacker.noun
+  verb = Faker::Hacker.ingverb
+  noun2 = Faker::Hacker.noun.pluralize
+  title = "What's the best #{noun} for #{verb} #{Faker::Hacker.adjective} #{noun2}"
   description = Faker::Lorem.sentence(5)
-  users.sample.questions.create!(title: title, description: description)
+  tags = "#{noun}, #{verb}, #{noun2}"
+  users.sample.questions.create!(title: title, description: description, tag_list: tags)
 end
 
 questions = Question.all

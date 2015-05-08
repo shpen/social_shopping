@@ -1,4 +1,11 @@
 <h1>Questions</h1>
+<% unless params[:tag].nil? %>
+<h2><%= params[:tag] %></h2>
+<% end %>
+
+<div>
+  <%= raw(@tags.map { |tag| link_to(tag.name, show_tag_path(tag.name)) }.join(",")) %>
+<div>
 
 <%= button_to 'Post New Question', new_question_path, method: :get %>
 
