@@ -4,7 +4,7 @@ class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   
   test "should get user" do
-    user = users(:one)
+    user = create(:user)
     get :show, id: user
     assert_response :success
   end

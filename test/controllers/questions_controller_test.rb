@@ -4,9 +4,9 @@ class QuestionsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   def setup
-    @question = questions(:one)
-    @user = users(:one)
-    @user_wrong = users(:two)
+    @question = create(:question)
+    @user = @question.user
+    @user_wrong = create(:user)
   end
 
   test "should get question" do

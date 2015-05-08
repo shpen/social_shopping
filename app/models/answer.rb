@@ -2,8 +2,8 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
 
-  validates :question_id, presence: true
-  validates :user_id, presence: true
+  validates :question, presence: true
+  validates :user, presence: true
   validates :content, presence: true
 
   validates :link, presence: true
@@ -13,7 +13,7 @@ class Answer < ActiveRecord::Base
 
   # We cannot reply to a question that we asked ourselves
   def user_differs_from_question_user
-    if question.user_id == user_id
+    if !question.nil? && question.user == user
       errors[:base] << "You cannot answer your own question"
     end
   end

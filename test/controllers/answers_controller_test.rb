@@ -4,11 +4,11 @@ class AnswersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   def setup
-    @answer = answers(:one)
-    @question = questions(:one)
-    @question_wrong = questions(:two)
-    @user = users(:two)
-    @user_wrong = users(:one)
+    @answer = create(:answer)
+    @question = @answer.question
+    @question_wrong = create(:question)
+    @user = @answer.user
+    @user_wrong = create(:user)
   end
 
   test "should get answer" do

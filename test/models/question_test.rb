@@ -2,16 +2,15 @@ require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
   def setup
-    @user = users(:one)
-    @question = @user.questions.build(title: "title")
+    @question = create(:question)
   end
 
   test "should be valid" do
     assert @question.valid?    
   end
 
-  test "user id should be present" do
-    @question.user_id = nil
+  test "user should be present" do
+    @question.user = nil
     assert_not @question.valid?
   end
 
