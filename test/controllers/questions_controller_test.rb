@@ -20,6 +20,14 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:questions)
   end
 
+  test "should get tag filtered questions" do
+    tag = @question.tags.first
+    get :show_tag, tag: tag.name
+    assert_response :success
+    assigns(:questions).each do |question|
+      assert question.tags.include?(tag)
+    end
+  end
 
   # Login redirects
 
