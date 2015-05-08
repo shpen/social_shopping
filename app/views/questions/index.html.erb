@@ -4,7 +4,7 @@
 <% end %>
 
 <div>
-  <%= raw(@tags.map { |tag| link_to(tag.name, show_tag_path(tag.name)) }.join(",")) %>
+  <%= raw(@tags.map { |tag| link_to(tag.name, show_tag_path(tag.name)) }.join(", ")) %>
 <div>
 
 <%= button_to 'Post New Question', new_question_path, method: :get %>
