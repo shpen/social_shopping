@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   has_many :answers
 
   acts_as_taggable
+  acts_as_votable
 
   validates :user, presence: true
   validates :title, presence: true

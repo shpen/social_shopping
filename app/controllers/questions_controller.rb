@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :up_vote, :down_vote]
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :up_vote, :down_vote]
   before_action :set_tags, only: [:index, :show_tag]
 
   # GET /questions
@@ -52,6 +52,18 @@ class QuestionsController < ApplicationController
   def show_tag
     @questions = Question.tagged_with(params[:tag]).paginate(page: params[:page])
     render :index
+  end
+
+  # PUT /questions/1/up_vote
+  def up_vote
+    current_user.up_votes @question
+    redirect_to @question
+  end
+
+  # PUT /questions/1/down_vote
+  def down_vote
+    current_user.down_votes @question
+    redirect_to @question
   end
 
   private

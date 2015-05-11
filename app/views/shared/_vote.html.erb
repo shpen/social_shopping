@@ -1,0 +1,5 @@
+<div>
+  <%= link_to raw('<span class="glyphicon glyphicon-chevron-up" style="color:orange" aria-hidden="true"></span>'), object.is_a?(Question) ? up_vote_question_path(object) : up_vote_question_answer_path(object.question, object), method: :put %>
+  <%= object.get_likes.size - object.get_dislikes.size %>
+  <%= link_to raw('<span class="glyphicon glyphicon-chevron-down" style="color:teal" aria-hidden="true"></span>'), object.is_a?(Question) ? down_vote_question_path(object) : down_vote_question_answer_path(object.question, object), method: :put %>
+</div>

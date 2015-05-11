@@ -1,9 +1,9 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :set_answer, only: [:show, :edit, :update, :destroy, :up_vote, :down_vote]
   before_action :set_question#, only: [:show, :new, :create, :edit, :update, :destroy]
   before_action :check_ids, only: [:show, :edit, :update, :destroy]
 
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :up_vote, :down_vote]
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
 
   # GET /questions/1/answers/1
@@ -49,6 +49,18 @@ class AnswersController < ApplicationController
   def destroy
     @answer.destroy
     redirect_to @question, flash: { success: 'Answer was successfully destroyed.' }
+  end
+
+  # PUT /questions/1/answers/1/up_vote
+  def up_vote
+    current_user.up_votes @answer
+    redirect_to @question
+  end
+
+  # PUT /questions/1/answers/1/down_vote
+  def down_vote
+    current_user.down_votes @answer
+    redirect_to @question
   end
 
   private

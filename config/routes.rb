@@ -6,7 +6,17 @@ Rails.application.routes.draw do
   get 'users/:id' => 'users#show', as: :user
 
   resources :questions do
-    resources :answers, except: :index #, shallow: true
+    member do
+      put 'up_vote' => 'questions#up_vote'
+      put 'down_vote' => 'questions#down_vote'
+    end
+
+    resources :answers, except: :index do #, shallow: true
+      member do
+        put 'up_vote' => 'answers#up_vote'
+        put 'down_vote' => 'answers#down_vote'
+      end
+    end
   end
 
   get 'tags/:tag' => 'questions#show_tag', as: :show_tag
