@@ -6,7 +6,7 @@
   <div class="timestamp">Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= link_to answer.user.username, user_path(answer.user) %>.</div>
 
   <% if current_user == answer.user %>
-    <%= link_to 'Edit', edit_question_answer_path(@question, answer) %> </br>
-    <%= link_to 'Delete', question_answer_path(@question, answer), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Edit', edit_question_answer_path(answer.question, answer) %> </br>
+    <%= link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 </li>

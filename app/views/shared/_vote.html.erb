@@ -1,5 +1,21 @@
-<div>
-  <%= link_to raw('<span class="glyphicon glyphicon-chevron-up" style="color:orange" aria-hidden="true"></span>'), object.is_a?(Question) ? up_vote_question_path(object) : up_vote_question_answer_path(object.question, object), method: :put %>
-  <%= object.get_likes.size - object.get_dislikes.size %>
-  <%= link_to raw('<span class="glyphicon glyphicon-chevron-down" style="color:teal" aria-hidden="true"></span>'), object.is_a?(Question) ? down_vote_question_path(object) : down_vote_question_answer_path(object.question, object), method: :put %>
-</div>
+<% if current_user %>
+  <div>
+    <% voted = current_user.voted_as_when_voted_for object %>
+    <% up_color = voted ? 'orange' : 'gray' %>
+    <% down_color = !voted.nil? && !voted ? 'aqua' : 'gray' %>
+
+    <% if object.user != current_user %>
+      <%= link_to object.is_a?(Question) ? up_vote_question_path(object) : up_vote_question_answer_path(object.question, object), method: :put do %>
+        <span class="glyphicon glyphicon-chevron-up" style="color:<%= up_color %>" aria-hidden="true"></span>
+      <% end %>
+    <% end %>
+    
+    <%= object.cached_votes_score %>
+
+    <% if object.user != current_user %>
+      <%= link_to object.is_a?(Question) ? down_vote_question_path(object) : down_vote_question_answer_path(object.question, object), method: :put do %>
+        <span class="glyphicon glyphicon-chevron-down" style="color:<%= down_color %>" aria-hidden="true"></span>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

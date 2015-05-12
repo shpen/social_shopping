@@ -12,7 +12,17 @@
       <ul class="questions">
         <%= render @questions %>
       </ul>
-      <%= will_paginate @questions %>
+      <%= will_paginate @questions, param_name: 'question_page' %>
+    <% end %>
+  </div>
+
+  <div class="col-md-8">
+    <% if @user.answers.any? %>
+      <h3>Answers (<%= @user.answers.count %>)</h3>
+      <ul class="questions">
+        <%= render @answers %>
+      </ul>
+      <%= will_paginate @answers, param_name: 'answer_page' %>
     <% end %>
   </div>
 </div>

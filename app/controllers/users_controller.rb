@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @questions = @user.questions.paginate(page: params[:page])
+    @questions = @user.questions.paginate(page: params[:question_page])
+    @answers = @user.answers.paginate(page: params[:answer_page])
   end
 end

@@ -8,4 +8,8 @@ class Question < ActiveRecord::Base
   validates :user, presence: true
   validates :title, presence: true
   validates :tag_list, presence: true
+
+  def score
+    self.get_upvotes.size - self.get_downvotes.size
+  end
 end

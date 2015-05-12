@@ -53,14 +53,20 @@ class AnswersController < ApplicationController
 
   # PUT /questions/1/answers/1/up_vote
   def up_vote
-    current_user.up_votes @answer
-    redirect_to @question
+    if current_user.up_votes @answer
+      redirect_to request.referrer || root_url
+    else
+      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote' }
+    end
   end
 
   # PUT /questions/1/answers/1/down_vote
   def down_vote
-    current_user.down_votes @answer
-    redirect_to @question
+    if current_user.down_votes @answer
+      redirect_to request.referrer || root_url
+    else
+      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote' }
+    end
   end
 
   private

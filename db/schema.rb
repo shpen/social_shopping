@@ -11,28 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508235958) do
+ActiveRecord::Schema.define(version: 20150512031721) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
     t.integer  "question_id"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "link"
+    t.integer  "cached_votes_total", default: 0
+    t.integer  "cached_votes_score", default: 0
+    t.integer  "cached_votes_up",    default: 0
+    t.integer  "cached_votes_down",  default: 0
   end
 
+  add_index "answers", ["cached_votes_down"], name: "index_answers_on_cached_votes_down"
+  add_index "answers", ["cached_votes_score"], name: "index_answers_on_cached_votes_score"
+  add_index "answers", ["cached_votes_total"], name: "index_answers_on_cached_votes_total"
+  add_index "answers", ["cached_votes_up"], name: "index_answers_on_cached_votes_up"
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
   create_table "questions", force: :cascade do |t|
     t.text     "description"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "title"
+    t.integer  "cached_votes_total", default: 0
+    t.integer  "cached_votes_score", default: 0
+    t.integer  "cached_votes_up",    default: 0
+    t.integer  "cached_votes_down",  default: 0
   end
 
+  add_index "questions", ["cached_votes_down"], name: "index_questions_on_cached_votes_down"
+  add_index "questions", ["cached_votes_score"], name: "index_questions_on_cached_votes_score"
+  add_index "questions", ["cached_votes_total"], name: "index_questions_on_cached_votes_total"
+  add_index "questions", ["cached_votes_up"], name: "index_questions_on_cached_votes_up"
   add_index "questions", ["user_id"], name: "index_questions_on_user_id"
 
   create_table "taggings", force: :cascade do |t|
