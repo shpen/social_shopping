@@ -7,13 +7,13 @@
   <%= raw(@question.tag_list.map { |tag| link_to(tag, show_tag_path(tag)) }.join(", ")) %>
 </div>
 
-<ul class="answers">
-  <%= render @question.answers %>
-</ul>
-
 <% if current_user == @question.user %>
   <%= link_to 'Edit', edit_question_path(@question) %> </br>
   <%= link_to 'Delete', @question, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% elsif %>
   <%= link_to 'Submit Answer', new_question_answer_path(@question) %>
 <% end %>
+
+<ul class="answers">
+  <%= render @question.answers %>
+</ul>
