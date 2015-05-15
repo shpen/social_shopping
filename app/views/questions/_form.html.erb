@@ -1,8 +1,6 @@
 <%= simple_form_for @question do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :tag_list, placeholder: "Comma separated list", input_html: { value: @question.tag_list.to_s } %>
-  <%= f.button :submit %>
+  <%= f.button :submit, class: 'btn-primary btn-wide' %>
 <% end %>

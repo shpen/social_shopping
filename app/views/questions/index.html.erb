@@ -1,18 +1,16 @@
 <h1>Questions</h1>
 <% unless params[:tag].nil? %>
-<h2><%= params[:tag] %></h2>
+  <h2><%= params[:tag] %></h2>
 <% end %>
 
+<div class="tag-cloud">
+  <%= render "shared/tag_list", object: @tags.map { |tag| tag.name } %>
+</div>
+
+<%= link_to 'New Question', new_question_path, class: "btn btn-primary" %>
+
 <div>
-  <%= raw(@tags.map { |tag| link_to(tag.name, show_tag_path(tag.name)) }.join(", ")) %>
-<div>
-
-<%= button_to 'Post New Question', new_question_path, method: :get %>
-
-<%= will_paginate %>
-
-<ul>
+  <%= will_paginate %>
   <%= render @questions %>
-</ul>
-
-<%= will_paginate %>
+  <%= will_paginate %>
+</div>

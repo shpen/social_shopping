@@ -1,5 +1,8 @@
-<h1>Editing Question</h1>
+<div class="col-sm-6 col-sm-push-3">
+  <h1>Editing Question</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Cancel', @question %>
+  <%= link_to "Cancel", request.referrer || root_url, class: "btn btn-info btn-wide" %>
+  <%= link_to "Delete", question_path(@question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-wide" %>
+</div>

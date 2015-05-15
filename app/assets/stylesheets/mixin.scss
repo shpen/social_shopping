@@ -1,0 +1,18 @@
+@mixin question-answer-panel {
+	@extend .panel;
+	overflow: auto;
+
+	.panel-body {
+		padding: 5px;
+	}
+
+	.tag-list {
+		float: left;
+		padding: 5px;
+	}
+
+	.timestamp {
+		float: right;
+		padding: 5px;
+	}
+}
