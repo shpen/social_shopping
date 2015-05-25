@@ -19,8 +19,4 @@ class Answer < ActiveRecord::Base
       errors[:base] << "You cannot answer your own question"
     end
   end
-
-  def score
-    self.get_upvotes.size - self.get_downvotes.size
-  end
 end

@@ -1,6 +1,6 @@
 <%= simple_form_for @question do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
-  <%= f.input :tag_list, placeholder: "Comma separated list", input_html: { value: @question.tag_list.to_s } %>
+  <%= f.input :tag_list, placeholder: "Comma separated list", input_html: { value: @question.all_tags_list.to_s } %>
   <%= f.button :submit, class: 'btn-primary btn-wide' %>
 <% end %>

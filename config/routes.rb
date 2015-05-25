@@ -18,8 +18,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  get 'tags/:tag' => 'questions#show_tag', as: :show_tag
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

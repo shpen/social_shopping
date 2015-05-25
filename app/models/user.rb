@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
+  acts_as_tagger
   acts_as_voter
   
   # Include default devise modules. Others available are:
@@ -17,6 +18,46 @@ class User < ActiveRecord::Base
     :uniqueness => {
       :case_sensitive => false
     }
+
+  # Get all tags for questions from this user
+  def get_question_tags
+    ActsAsTaggableOn::Tagging.includes(:tag).where(taggable_type: Question.name, tagger_id: self).map { |tagging| tagging.tag }.uniq
+  end
+
+  # Get all tags for answers from this user
+  def get_answer_tags
+    ActsAsTaggableOn::Tagging.includes(:tag).where(taggable_type: Question.name, taggable: get_answered_questions).map { |tagging| tagging.tag }.uniq
+  end
+
+  # Get questions from this user for a specific tag
+  def get_questions_by_tag(tag)
+    if tag.nil?
+      questions
+    else
+      Question.tagged_with(tag, owned_by: self)
+    end
+  end
+
+  # Get answers from this user for a specific tag
+  def get_answers_by_tag(tag)
+    if tag.nil?
+      answers
+    else
+      answers.where(question: get_answered_questions(tag))
+    end
+  end
+
+  # Get all questions the user has answered
+  def get_answered_questions(tag = nil)
+    if tag.nil?
+      Question.joins(:answers).where(answers: { id: answers }).uniq
+    else
+      Question.tagged_with(tag).joins(:answers).where(answers: { id: answers }).uniq
+    end
+  end
+
+
+  ### DEVISE ###
 
   # Override authentication to use email or username
   def self.find_first_by_auth_conditions(warden_conditions)

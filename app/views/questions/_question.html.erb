@@ -8,10 +8,10 @@
     <%= render "shared/vote", object: question %>
     <%= question.description %>
   </div>
-  <div class="tag-list"><%= render "shared/tag_list", object: question.tag_list %></div>
+  <div class="tag-list"><%= render "shared/tag_list", tags: question.all_tags_list, highlight: nil %></div>
   <div class="timestamp">
     <% if current_user == question.user %>
-      <%= link_to 'Edit', edit_question_path(question), class: "btn btn-info btn-xs" %>
+      <%= link_to 'Edit', edit_question_path(question), class: "btn btn-primary btn-xs" %>
     <% end %>
 
     Posted <%= time_ago_in_words(question.created_at) %> ago by <%= link_to question.user.username, user_path(question.user) %>.

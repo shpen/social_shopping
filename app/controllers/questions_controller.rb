@@ -2,11 +2,20 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :up_vote, :down_vote]
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy, :up_vote, :down_vote]
-  before_action :set_tags, only: [:index, :show_tag]
+  before_action :set_tags, only: [:index]
 
   # GET /questions
   def index
-    @questions = Question.paginate(page: params[:page], :per_page => 10)
+    if params[:tag]
+      @questions = Question.tagged_with(params[:tag])
+    else
+      @questions = Question.all
+    end
+
+    @questions = sort_by(@questions, params[:sort])
+    @questions = @questions.paginate(page: params[:page], :per_page => 10)
+
+    @params = params.slice(:sort, :tag, :page)
   end
 
   # GET /questions/1
@@ -21,6 +30,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   def create
     @question = current_user.questions.build(question_params)
+    @question.form_saved = true
 
     if @question.save
       redirect_to @question, flash: { success: 'Question was successfully created.' }
@@ -35,6 +45,8 @@ class QuestionsController < ApplicationController
 
   # PATCH/PUT /questions/1
   def update
+    @question.form_saved = true
+
     if @question.update(question_params)
       redirect_to @question, flash: { success: 'Question was successfully updated.' }
     else
@@ -46,12 +58,6 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     redirect_to questions_url, flash: { success: 'Question was successfully destroyed.' }
-  end
-
-  # GET /tag/laptops
-  def show_tag
-    @questions = Question.tagged_with(params[:tag]).paginate(page: params[:page])
-    render :index
   end
 
   # PUT /questions/1/up_vote

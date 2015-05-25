@@ -1,15 +1,14 @@
 <h1>Questions</h1>
-<% unless params[:tag].nil? %>
-  <h2><%= params[:tag] %></h2>
-<% end %>
-
-<div class="tag-cloud">
-  <%= render "shared/tag_list", object: @tags.map { |tag| tag.name } %>
-</div>
 
 <%= link_to 'New Question', new_question_path, class: "btn btn-primary" %>
 
+<div class="tag-cloud">
+  <%= render "shared/tag_list", tags: @tags.map { |tag| tag.name }, highlight: params[:tag] %>
+</div>
+
 <div>
+  <%= render 'shared/sort', context: :questions, sort: :sort %>
+
   <%= will_paginate %>
   <%= render @questions %>
   <%= will_paginate %>

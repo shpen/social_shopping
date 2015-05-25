@@ -22,7 +22,7 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test "should get tag filtered questions" do
     tag = @question.tags.first
-    get :show_tag, tag: tag.name
+    get :index, tag: tag.name
     assert_response :success
     assigns(:questions).each do |question|
       assert question.tags.include?(tag)
@@ -116,7 +116,7 @@ class QuestionsControllerTest < ActionController::TestCase
   test "should update when logged in" do
     sign_in @user
     title = 'New Title'
-    put :update, id: @question, question: { title: title }
+    put :update, id: @question, question: { title: title, tag_list: "tagg" }
     assert_equal title, Question.find(@question.id).title
     assert_redirected_to @question
   end

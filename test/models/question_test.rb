@@ -24,8 +24,9 @@ class QuestionTest < ActiveSupport::TestCase
     assert @question.valid?
   end
 
-  test "tag_list should be present" do
+  test "all_tags_list should be present" do
     @question.tag_list = "  "
+    @question.form_saved = true
     assert_not @question.valid?
   end
 end

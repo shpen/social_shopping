@@ -11,21 +11,41 @@
 <div class="row">
   <div class="col-sm-6">
     <% if @user.questions.any? %>
-      <h3>Questions (<%= @user.questions.count %>)</h3>
-      <div class="questions">
-        <%= render @questions %>
+      <h3>Questions (<%= @questions.count %>)</h3>
+
+      <div class="user-tag-list">
+        <%= if params[:question_tag] then link_to "Clear", @user, class: "btn btn-primary btn-xs" end %>
+        <%= raw(@question_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(question_tag: tag, question_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:question_tag]}") }.join(" ")) %>
       </div>
-      <%= will_paginate @questions, param_name: 'question_page' %>
+
+      <%= render 'shared/sort', context: :user, sort: :question_sort %>
+
+      <div class="questions">
+        <%= will_paginate @questions, param_name: 'question_page' %>
+        <%= render @questions %>
+        <%= will_paginate @questions, param_name: 'question_page' %>
+      </div>
+
     <% end %>
   </div>
 
   <div class="col-sm-6">
     <% if @user.answers.any? %>
-      <h3>Answers (<%= @user.answers.count %>)</h3>
-      <div class="questions">
-        <%= render @answers %>
+      <h3>Answers (<%= @answers.count %>)</h3>
+
+      <div class="user-tag-list">
+        <%= if params[:answer_tag] then link_to "Clear", @user, class: "btn btn-primary btn-xs" end %>
+        <%= raw(@answer_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(answer_tag: tag, answer_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:answer_tag]}") }.join(" ")) %>
       </div>
-      <%= will_paginate @answers, param_name: 'answer_page' %>
+
+      <%= render 'shared/sort', context: :user, sort: :answer_sort %>
+
+      <div class="answers">
+        <%= will_paginate @answers, param_name: 'answer_page' %>
+        <%= render @answers %>
+        <%= will_paginate @answers, param_name: 'answer_page' %>
+      </div>
+      
     <% end %>
   </div>
 </div>

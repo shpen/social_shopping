@@ -13,7 +13,7 @@
     <div class="link"><%= link_to answer.link, answer.link %></div>
     <div class="timestamp">
       <% if current_user == answer.user %>
-        <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-info btn-xs" %>
+        <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs" %>
       <% end %>
 
       Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= link_to answer.user.username, user_path(answer.user) %>.
