@@ -1,3 +1,3 @@
 <% if !defined? @params then @params = {} end %>
-<%= if highlight then link_to "Clear", questions_path(@params.merge(tag: nil)), class: "btn btn-primary btn-xs" end %>
-<%= raw(tags.map { |tag| link_to(tag, questions_path(@params.merge(tag: tag)), class: "btn btn-default btn-xs #{'active' if tag == highlight}") }.join(" ")) %>
+<%= if highlight then link_to "Clear", questions_path(@params.merge(tag: nil, page: nil)), class: "btn btn-primary btn-xs" end %>
+<%= raw(tags.map { |tag| link_to(tag, questions_path(@params.merge(tag: tag, page: nil)), class: "btn btn-default btn-xs #{'active' if tag == highlight}") }.join(" ")) %>
