@@ -24,7 +24,6 @@ body {
   color: #eee;
   text-transform: uppercase;
   letter-spacing: -1px;
-  padding-top: 5px;
   font-weight: bold;
 
   &:hover {
@@ -35,6 +34,7 @@ body {
 
 #nav-search {
   padding: 0px;
+  margin: 0px;
 }
 
 /* footer */
