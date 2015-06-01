@@ -6,6 +6,8 @@
   <%= render "shared/tag_list", tags: @tags.map { |tag| tag.name }, highlight: params[:tag] %>
 </div>
 
+<%= link_to 'Friends only', questions_path(@params.merge(friends: @params[:friends] != 'true')), class: "btn btn-default #{'active' if params[:friends] == 'true'}" %>
+
 <div>
   <%= render 'shared/sort', context: :questions, sort: :sort %>
 

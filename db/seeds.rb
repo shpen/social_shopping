@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Create users
 ActiveRecord::Base.transaction do
   10.times do |n|
     name  = Faker::Name.name
@@ -19,6 +20,7 @@ ActiveRecord::Base.transaction do
 end
 users = User.all
 
+# Ask questions
 ActiveRecord::Base.transaction do
   50.times do
     noun = Faker::Hacker.noun
@@ -32,6 +34,7 @@ ActiveRecord::Base.transaction do
 end
 questions = Question.all
 
+# Answer questions
 ActiveRecord::Base.transaction do
   200.times do
     content = "I think #{Faker::Hacker.noun.pluralize} are the best because they are the most #{Faker::Hacker.adjective}"
@@ -46,6 +49,7 @@ ActiveRecord::Base.transaction do
 end
 answers = Answer.all
 
+# Vote
 ActiveRecord::Base.transaction do
   users.each do |user|
     questions.each do |question|
@@ -65,6 +69,36 @@ ActiveRecord::Base.transaction do
         else
           user.down_votes answer
         end
+      end
+    end
+  end
+end
+
+# Make friends
+ActiveRecord::Base.transaction do
+  requests = {}
+  users.each do |user1|
+    users.each do |user2|
+      if [true, false].sample && user1 != user2
+        (requests[user1] ||= []) << user2
+      end
+    end
+  end
+
+  handled = {}
+  requests.each do |user1, friends|
+    friends.each do |user2|
+      if requests[user2].include?(user1)
+        handled[user1] ||= []
+        handled[user2] ||= []
+        unless handled[user1].include?(user2) || handled[user2].include?(user1)
+          user1.friends << user2
+          user2.friends << user1
+          handled[user1] << user2
+          handled[user2] << user1
+        end
+      else
+        user1.friend_requests.create(friend: user2)
       end
     end
   end

@@ -27,4 +27,9 @@ class Question < ActiveRecord::Base
       self.tag_list = nil
     end
   end
+
+  # Get all tags for questions from a list of users
+  def self.get_tags_from_users(users)
+    ActsAsTaggableOn::Tagging.includes(:tag).where(taggable_type: Question.name, tagger_id: users).map { |tagging| tagging.tag }.uniq
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512031721) do
+ActiveRecord::Schema.define(version: 20150528010629) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -32,6 +32,26 @@ ActiveRecord::Schema.define(version: 20150512031721) do
   add_index "answers", ["cached_votes_up"], name: "index_answers_on_cached_votes_up"
   add_index "answers", ["question_id"], name: "index_answers_on_question_id"
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "friend_requests", ["friend_id"], name: "index_friend_requests_on_friend_id"
+  add_index "friend_requests", ["user_id"], name: "index_friend_requests_on_user_id"
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id"
+  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id"
 
   create_table "questions", force: :cascade do |t|
     t.text     "description"

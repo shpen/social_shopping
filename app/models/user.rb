@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
 
+  has_many :friend_requests, dependent: :destroy
+  has_many :pending_friends, through: :friend_requests, source: :friend
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships
+
   acts_as_tagger
   acts_as_voter
   
@@ -21,7 +26,7 @@ class User < ActiveRecord::Base
 
   # Get all tags for questions from this user
   def get_question_tags
-    ActsAsTaggableOn::Tagging.includes(:tag).where(taggable_type: Question.name, tagger_id: self).map { |tagging| tagging.tag }.uniq
+    Question.get_tags_from_users(self)
   end
 
   # Get all tags for answers from this user

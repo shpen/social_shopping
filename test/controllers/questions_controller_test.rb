@@ -9,6 +9,7 @@ class QuestionsControllerTest < ActionController::TestCase
     @user_wrong = create(:user)
   end
 
+
   test "should get question" do
     get :show, id: @question
     assert_response :success
@@ -28,6 +29,7 @@ class QuestionsControllerTest < ActionController::TestCase
       assert question.tags.include?(tag)
     end
   end
+
 
   # Login redirects
 

@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :up_vote, :down_vote]
-  before_action :check_user_ownership, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_question, only: [:show, :edit, :update, :destroy, :up_vote, :down_vote]
-  before_action :set_tags, only: [:index]
+  before_action :check_user_ownership, only: [:edit, :update, :destroy]
+  before_action :set_tags, only: :index
 
   # GET /questions
   def index
@@ -12,10 +12,14 @@ class QuestionsController < ApplicationController
       @questions = Question.all
     end
 
+    if params[:friends] == 'true'
+      @questions = @questions.where(user: current_user.friends)
+    end
+
     @questions = sort_by(@questions, params[:sort])
     @questions = @questions.paginate(page: params[:page], :per_page => 10)
 
-    @params = params.slice(:sort, :tag, :page)
+    @params = params.slice(:sort, :tag, :page, :friends)
   end
 
   # GET /questions/1
@@ -65,7 +69,7 @@ class QuestionsController < ApplicationController
     if current_user.up_votes @question
       redirect_to request.referrer || root_url
     else
-      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote' }
+      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote.' }
     end
   end
 
@@ -74,17 +78,24 @@ class QuestionsController < ApplicationController
     if current_user.down_votes @question
       redirect_to request.referrer || root_url
     else
-      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote' }
+      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote.' }
     end
   end
 
   private
     def set_question
       @question = Question.find(params[:id])
+      if @question.nil?
+        redirect_to request.referrer || root_url, flash: { danger: 'Unable to find question.' }
+      end
     end
 
     def set_tags
-      @tags = Question.all_tags
+      if params[:friends] == 'true'
+        @tags = Question.get_tags_from_users(current_user.friends)
+      else
+        @tags = Question.all_tags
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -94,8 +105,7 @@ class QuestionsController < ApplicationController
 
     # Make sure user taking action is the owner
     def check_user_ownership
-      @question = current_user.questions.find_by(id: params[:id])
-      if @question.nil?
+      if @question.user != current_user
         redirect_to(request.referrer || root_url, flash: { danger: 'You do not have permission to do that.' })
       end
     end
