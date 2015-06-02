@@ -2,6 +2,10 @@
 
 <% if current_user != @question.user %>
   <p><%= link_to 'Submit Answer', new_question_answer_path(@question), class: "btn btn-primary" %></p>
+<% else %>
+  <a href="http://www.facebook.com/dialog/send?app_id=1425246721117641&link=<%= request.original_url %>&redirect_uri=<%= request.original_url %>">
+    Share to Facebook
+  </a>
 <% end %>
 
 <%= render @question.answers %>
