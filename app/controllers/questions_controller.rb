@@ -24,6 +24,9 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1
   def show
+    if params[:success]
+      flash.now[:success] = "Successfully shared to Facebook"
+    end
   end
 
   # GET /questions/new
