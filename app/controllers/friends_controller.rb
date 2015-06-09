@@ -15,7 +15,7 @@ class FriendsController < ApplicationController
 
     # Check if this user has already requested us
     if friend.pending_friends.include? current_user
-      FriendRequest.where(user: friend, friend: current_user).accept
+      FriendRequest.find(user: friend, friend: current_user).accept
       flash[:success] = "You are now friends with #{friend.username}"
     else
       friend_request = current_user.friend_requests.build(friend: friend)
@@ -63,6 +63,26 @@ class FriendsController < ApplicationController
     end
 
     redirect_to request.referrer || root_url
+  end
+
+  # GET /friends/facebook
+  def facebook
+    @facebook_friends = current_user.query_facebook_for_friends.where.not(id: current_user.friends + current_user.pending_friends)
+  end
+
+  # POST /friends/facebook
+  def facebook_add
+    # Delete the blank id and convert to ints first
+    ids = (params[:user][:facebook_friends] - [""]).map { |friend_id| friend_id.to_i }
+    User.where(id: ids).each do |friend|
+      if friend.pending_friends.include? current_user
+        FriendRequest.find_by(user: friend, friend: current_user).accept
+      else
+        friend_request = current_user.friend_requests.create(friend: friend, facebook: true)
+      end
+    end
+
+    redirect_to action: 'index'
   end
 
   private

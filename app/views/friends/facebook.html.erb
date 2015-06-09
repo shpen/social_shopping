@@ -1,0 +1,5 @@
+<%= form_tag(facebook_friends_add_path, method: :post, class: "form-horizontal") do %>
+  <%= collection_check_boxes(:user, :facebook_friends, @facebook_friends, :id, :name) %>
+  </br>
+  <%= submit_tag "Add", class: "btn btn-primary" %>
+<% end %>

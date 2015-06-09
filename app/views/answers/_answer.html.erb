@@ -16,7 +16,7 @@
         <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs" %>
       <% end %>
 
-      Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= link_to answer.user.username, user_path(answer.user) %>.
+      Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= render 'users/shared/link', user: answer.user, hide_label: defined?(hide_user_label) && hide_user_label %>
     </div>
   </div>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528010629) do
+ActiveRecord::Schema.define(version: 20150605034726) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150528010629) do
     t.integer  "friend_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "facebook"
   end
 
   add_index "friend_requests", ["friend_id"], name: "index_friend_requests_on_friend_id"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150528010629) do
     t.integer  "friend_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "facebook"
   end
 
   add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id"
@@ -107,6 +109,9 @@ ActiveRecord::Schema.define(version: 20150528010629) do
     t.string   "username"
     t.string   "provider"
     t.string   "uid"
+    t.string   "token"
+    t.datetime "expiration"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

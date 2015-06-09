@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
@@ -11,7 +13,7 @@ class User < ActiveRecord::Base
   acts_as_voter
   
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
@@ -61,6 +63,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def query_facebook_for_friends
+    friend_data = JSON.parse(open("https://graph.facebook.com/v2.3/#{uid}/friends?access_token=#{token}").read)["data"]
+    uids = []
+    friend_data.each { |friend| uids << friend["id"] }
+    users = User.where(uid: uids)
+    user_ids = users.pluck(:id)
+
+    # Update friendships and requests to reflect Facebook connections
+    Friendship.where(user: self, friend: user_ids).update_all(facebook: true)
+    Friendship.where(user: user_ids, friend: self).update_all(facebook: true)
+    FriendRequest.where(user: self, friend: user_ids).update_all(facebook: true)
+    FriendRequest.where(user: user_ids, friend: self).update_all(facebook: true)
+
+    users
+  end
+
 
   ### DEVISE ###
 
@@ -79,19 +97,22 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-      user.username = auth.info.name   # assuming the user model has a name
-      #user.image = auth.info.image # assuming the user model has an image
-    end
+    where(provider: auth.provider, uid: auth.uid).first_or_create
   end
 
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.username = data["name"] if user.username.blank?
+        user.name = data["name"] if user.name.blank?
         user.email = data["email"] if user.email.blank?
+
+        user.password = Devise.friendly_token[0,20] if user.encrypted_password.blank?
+
+        user.provider = session["devise.facebook_data"]["provider"] if user.provider.blank?
+        user.uid = session["devise.facebook_data"]["uid"] if user.uid.blank?
+
+        user.token = session["devise.facebook_data"]["credentials"]["token"] if user.token.blank?
+        user.expiration = Time.at(session["devise.facebook_data"]["credentials"]["expires_at"].to_i).to_datetime if user.expiration.blank?
       end
     end
   end

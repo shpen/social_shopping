@@ -14,8 +14,8 @@ class FriendRequest < ActiveRecord::Base
   end
 
   def accept
-    user.friends << friend
-    friend.friends << user
+    user.friendships.create(friend: friend, facebook: facebook)
+    friend.friendships.create(friend: user, facebook: facebook)
     destroy
   end
 end

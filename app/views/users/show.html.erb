@@ -6,8 +6,11 @@
       </h1>
 
       <% if user_signed_in? && current_user != @user %>
-          <% if @user.friends.include? current_user %>
+          <% if current_user.friends.include? @user %>
             <span class="label label-primary">Friend</span>
+            <% if current_user.friendships.find_by(friend: @user).facebook %>
+              (<%= @user.name %> <span class="fa fa-facebook-official fa-lg"></span>)
+            <% end %>
           <% elsif current_user.pending_friends.include? @user %>
             <span class="label label-info">Friend requested</span>
           <% elsif @user.pending_friends.include? current_user %>
@@ -34,7 +37,7 @@
 
       <div class="questions">
         <%= will_paginate @questions, param_name: 'question_page' %>
-        <%= render @questions %>
+        <%= render @questions, hide_user_label: true %>
         <%= will_paginate @questions, param_name: 'question_page' %>
       </div>
 
@@ -54,7 +57,7 @@
 
       <div class="answers">
         <%= will_paginate @answers, param_name: 'answer_page' %>
-        <%= render @answers %>
+        <%= render @answers, hide_user_label: true %>
         <%= will_paginate @answers, param_name: 'answer_page' %>
       </div>
       

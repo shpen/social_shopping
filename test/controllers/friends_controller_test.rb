@@ -49,6 +49,10 @@ class FriendsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_url
   end
 
+  test "should redirect facebook when not logged in" do
+    get :facebook
+    assert_redirected_to new_user_session_url
+  end
 
   # Simple login successes
 
@@ -69,6 +73,37 @@ class FriendsControllerTest < ActionController::TestCase
     assert_redirected_to request.referrer || root_url
   end
 
+  test "should show facebook friends when logged in" do
+    sign_in @user
+    @user.uid = 101450360195871
+    @user.token = 'CAAUQQRyHjckBALyiZAzcHKEwT0nWbAZBHjDG79fj69GMCuEgPr7VLWZBQ5ZAU5fDSZASwcTJCes7wfhIAoo0gUwBti5ZASfHhvVuqWdcLEQuakwBK7KkoWOLHbAbnMVdz1NCtN42ZB1GJZA967Wnyx8ldAbz3YCPj6ojutZC5ln1Ffrbi91OHYcT5vPBUXXRVqvT0Nv1n1wdDyQwwBuUwklZAR'
+    @user.save
+    get :facebook
+    assert_response :success
+    assert_not_nil assigns(:facebook_friends)
+  end
+
+  test "should request facebook friends when logged in" do
+    sign_in @user
+    assert_difference 'FriendRequest.count' do
+      post :facebook_add, user: { facebook_friends: ["", "#{@user_other.id}"] }
+    end
+    assert FriendRequest.last.facebook
+    assert_redirected_to action: 'index'
+  end
+
+  test "should auto add facebook friends when logged in" do
+    @user_other.friend_requests.create(friend: @user, facebook: true)
+    sign_in @user
+    assert_difference('FriendRequest.count', -1) do
+      assert_difference('Friendship.count', 2) do
+        post :facebook_add, user: { facebook_friends: ["", "#{@user_other.id}"] }
+      end
+    end
+    assert Friendship.last.facebook
+    assert Friendship.all[-2].facebook
+    assert_redirected_to action: 'index'
+  end
 
   # Incorrect user login redirects
 

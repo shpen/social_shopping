@@ -87,6 +87,8 @@ GEM
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.8-x86-mingw32)
+    font-awesome-sass (4.3.2.1)
+      sass (~> 3.2)
     formatador (0.2.5)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
@@ -271,6 +273,7 @@ DEPENDENCIES
   devise (~> 3.4.1)
   factory_girl_rails (~> 4.0)
   faker
+  font-awesome-sass
   guard-minitest (= 2.3.1)
   jbuilder (~> 2.0)
   jquery-rails

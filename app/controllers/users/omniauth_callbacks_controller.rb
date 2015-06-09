@@ -1,8 +1,21 @@
+#require 'open-uri'
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-=begin # We need email to register, so send them back. But first lets make a proper interface
-    if request.env["omniauth.auth"].info.email.blank?
-      redirect_to "/users/auth/facebook?auth_type=rerequest&scope=email"
+  #redirect_to "/users/auth/facebook?auth_type=rerequest&scope=email,user_friends"
+
+=begin
+    permissions = JSON.parse(open("https://graph.facebook.com/v2.3/#{request.env['omniauth.auth']['uid']}/permissions?access_token=#{request.env['omniauth.auth']['credentials']['token']}").read)
+    friends = false
+    permissions['data'].each do |perm|
+      if perm['permission'] == 'user_friends' && perm['status'] == 'granted'
+        friends = true
+      end
+    end
+
+    # Ask again for email/friends
+    if !friends || request.env["omniauth.auth"].info.email.blank?
+      redirect_to facebook_permissions_url
       return
     end
 =end

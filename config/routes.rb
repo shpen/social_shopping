@@ -1,15 +1,18 @@
 Rails.application.routes.draw do
   root 'questions#index'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations" }
   get 'users' => 'users#index'
   get 'users/:id' => 'users#show', as: :user
+  get 'users/facebook_permissions' => 'users#facebook_permissions', as: :facebook_permissions
 
   get 'friends' => 'friends#index'
   post 'users/:id/friend_request' => 'friends#request_friend', as: :friend_request
   put  'friend_requests/:id/accept' => 'friends#accept', as: :friend_accept
   delete 'friend_requests/:id/decline' => 'friends#decline', as: :friend_decline
   delete 'friends/:id/delete' => 'friends#delete', as: :friend_delete
+  get 'friends/facebook' => 'friends#facebook', as: :facebook_friends
+  post 'friends/facebook' => 'friends#facebook_add', as: :facebook_friends_add
 
   resources :questions do
     member do

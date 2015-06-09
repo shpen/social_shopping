@@ -1,0 +1,12 @@
+<%= link_to user do %>
+  <%= user.username %>
+  <% if user_signed_in? && (friendship = current_user.friendships.find_by(friend: user)) %>
+    <% if friendship.facebook %>
+      (<%= user.name %> <span class="fa fa-facebook-official fa-lg"></span>)
+    <% end %>
+
+    <% if !defined?(hide_label) || !hide_label %>
+      <span class="label label-primary">Friend</span>
+    <% end %>
+  <% end %>
+<% end %>
