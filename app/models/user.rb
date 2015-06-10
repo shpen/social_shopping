@@ -26,6 +26,13 @@ class User < ActiveRecord::Base
       :case_sensitive => false
     }
 
+  with_options if: 'provider == "facebook"' do
+    validates :uid, presence: true
+    validates :token, presence: true
+    validates :expiration, presence: true
+    validates :name, presence: true
+  end
+
   # Get all tags for questions from this user
   def get_question_tags
     Question.get_tags_from_users(self)
