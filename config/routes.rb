@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'friends/facebook' => 'friends#facebook', as: :facebook_friends
   post 'friends/facebook' => 'friends#facebook_add', as: :facebook_friends_add
 
+  get 'vote' => 'votes#vote', as: :vote
+
   resources :questions do
     member do
       put 'up_vote' => 'questions#up_vote'

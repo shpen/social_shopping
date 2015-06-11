@@ -4,15 +4,15 @@
   <% down_color = !voted.nil? && !voted ? 'aqua' : 'gray' %>
 
   <% if current_user && object.user != current_user %>
-    <%= link_to object.is_a?(Question) ? up_vote_question_path(object) : up_vote_question_answer_path(object.question, object), method: :put do %>
+    <%= link_to vote_path(model_class: object.class, id: object.id, vote: true), remote: true do %>
       <span class="glyphicon glyphicon-chevron-up" style="color:<%= up_color %>" aria-hidden="true"></span>
     <% end %>
   <% end %>
   
-  <div><%= object.cached_votes_score %></div>
+  <div class="score"><%= object.cached_votes_score %></div>
 
   <% if current_user && object.user != current_user %>
-    <%= link_to object.is_a?(Question) ? down_vote_question_path(object) : down_vote_question_answer_path(object.question, object), method: :put do %>
+    <%= link_to vote_path(model_class: object.class, id: object.id, vote: false), remote: true do %>
       <span class="glyphicon glyphicon-chevron-down" style="color:<%= down_color %>" aria-hidden="true"></span>
     <% end %>
   <% end %>
