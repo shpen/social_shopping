@@ -8,19 +8,17 @@ class VotesController < ApplicationController
     # Unvote
     if (voted && params[:vote] == 'true') || (voted == false && params[:vote] == 'false')
       current_user.unvote_for votable
-      @result = nil
 
     # Upvote
     elsif params[:vote] == 'true'
       current_user.up_votes votable
-      @result = true
 
     # Downvote
     else
       current_user.down_votes votable
-      @result = false
     end
 
+    @result = current_user.voted_as_when_voted_for votable
     @score = votable.cached_votes_score
 
     respond_to do |format|
