@@ -17,18 +17,10 @@ Rails.application.routes.draw do
   get 'vote' => 'votes#vote', as: :vote
 
   resources :questions do
-    member do
-      put 'up_vote' => 'questions#up_vote'
-      put 'down_vote' => 'questions#down_vote'
-    end
-
-    resources :answers, except: :index do #, shallow: true
-      member do
-        put 'up_vote' => 'answers#up_vote'
-        put 'down_vote' => 'answers#down_vote'
-      end
-    end
+    resources :answers, except: :index
   end
+
+  resources :comments, except: :index
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

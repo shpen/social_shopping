@@ -1,0 +1,11 @@
+.comments {
+	margin-left: 40px;
+}
+
+.comment {
+	@include question-answer-panel;
+	@extend .panel-warning;
+
+	margin-bottom: 0px;
+	margin-top: 0px;
+}

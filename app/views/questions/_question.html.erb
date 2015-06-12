@@ -5,7 +5,7 @@
     <% end %>
   </div>
   <div class="panel-body">
-    <%= render "shared/vote", object: question %>
+    <%= render "votes/vote", object: question %>
     <%= question.description %>
   </div>
   <div class="tag-list"><%= render "shared/tag_list", tags: question.all_tags_list, highlight: nil %></div>
@@ -17,3 +17,10 @@
     Posted <%= time_ago_in_words(question.created_at) %> ago by <%= render 'users/shared/link', user: question.user, hide_label: defined?(hide_user_label) && hide_user_label %>
   </div>
 </div>
+
+<% if current_page?(question_path(question)) %>
+  <div class="comments">
+    <%= render question.comments %>
+    <%= link_to "Add comment", new_comment_path(commentable: Question, id: question.id), class: "btn btn-warning btn-xs" %>
+  </div>
+<% end %>

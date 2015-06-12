@@ -7,7 +7,7 @@
     </div>
   <% end %>
   <div class="panel-body">
-    <%= render "shared/vote", object: answer %>
+    <%= render "votes/vote", object: answer %>
 
     <div class="content"><%= answer.content %></div>
     <div class="link"><%= link_to answer.link, answer.link %></div>
@@ -20,3 +20,10 @@
     </div>
   </div>
 </div>
+
+<% if current_page?(question_path(answer.question)) %>
+  <div class="comments">
+    <%= render answer.comments %>
+    <%= link_to "Add comment", new_comment_path(commentable: Answer, id: answer.id), class: "btn btn-warning btn-xs" %>
+  </div>
+<% end %>

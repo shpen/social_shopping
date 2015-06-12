@@ -1,0 +1,12 @@
+<div class="comment" id="Comment-<%= comment.id %>">
+  <div class="panel-body">
+    <div class="content"><%= comment.content %></div>
+    <div class="timestamp">
+      <% if current_user == comment.user %>
+        <%= link_to 'Edit', edit_comment_path(comment), class: "btn btn-primary btn-xs" %>
+      <% end %>
+
+      Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= render 'users/shared/link', user: comment.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+    </div>
+  </div>
+</div>

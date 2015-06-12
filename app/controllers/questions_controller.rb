@@ -88,9 +88,6 @@ class QuestionsController < ApplicationController
   private
     def set_question
       @question = Question.find(params[:id])
-      if @question.nil?
-        redirect_to request.referrer || root_url, flash: { danger: 'Unable to find question.' }
-      end
     end
 
     def set_tags

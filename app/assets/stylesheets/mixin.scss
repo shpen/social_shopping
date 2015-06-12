@@ -1,6 +1,8 @@
 @mixin question-answer-panel {
 	@extend .panel;
 	overflow: auto;
+	margin-top: 20px;
+	margin-bottom: 0px;
 
 	.panel-body {
 		padding: 5px;

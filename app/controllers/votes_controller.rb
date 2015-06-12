@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   before_action :authenticate_user!
 
   def vote
-    votable = params[:model_class].constantize.find(params[:id])
+    votable = params[:votable].constantize.find(params[:id])
     voted = current_user.voted_as_when_voted_for votable
 
     # Unvote
