@@ -1,20 +1,20 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_commentable, only: [:new, :create]
   before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :check_user_ownership, only: [:edit, :update, :destroy]
 
   # GET /comments/new
   def new
-    @commentable = params[:commentable].constantize.find(params[:id])
     @comment = Comment.new
   end
 
   # POST /comments
   def create
-    @commentable = params[:comment][:commentable_type].constantize.find(params[:comment][:commentable_id])
     @comment = current_user.comments.build(content: params[:comment][:content], commentable: @commentable)
 
     if @comment.save
-      redirect_to question_url(redirect_url(@commentable)), flash: { success: 'Comment was successfully created.' }
+      redirect_to redirect_url(@commentable), flash: { success: 'Comment was successfully created.' }
     else
       render :new
     end
@@ -41,8 +41,25 @@ class CommentsController < ApplicationController
   end
 
   private
+    # Make sure type is commentable
+    def set_commentable
+      type = params[:comment][:commentable_type]
+      if type == 'Question' || type == 'Answer'
+        @commentable = type.constantize.find(params[:comment][:commentable_id])
+      else
+        redirect_to(request.referrer || root_url, flash: { danger: "You cannot comment on a #{type}" })
+      end
+    end
+
     def set_comment
       @comment = Comment.find(params[:id])
+    end
+
+    # Make sure user taking action is the owner
+    def check_user_ownership
+      if @comment.user != current_user
+        redirect_to(request.referrer || root_url, flash: { danger: 'You do not have permission to do that.' })
+      end
     end
 
     def redirect_url(commentable)

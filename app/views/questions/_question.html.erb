@@ -21,6 +21,6 @@
 <% if current_page?(question_path(question)) %>
   <div class="comments">
     <%= render question.comments %>
-    <%= link_to "Add comment", new_comment_path(commentable: Question, id: question.id), class: "btn btn-warning btn-xs" %>
+    <%= link_to "Add comment", new_comment_path(comment: { commentable_type: Question, commentable_id: question.id }), class: "btn btn-warning btn-xs" %>
   </div>
 <% end %>

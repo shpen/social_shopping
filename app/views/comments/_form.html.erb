@@ -1,6 +1,8 @@
 <%= simple_form_for(@comment) do |f| %>
   <%= f.input :content %>
   <%= f.button :submit, class: 'btn-primary btn-wide' %>
-  <%= f.hidden_field :commentable_id, value: params[:id] %>
-  <%= f.hidden_field :commentable_type, value: params[:commentable] %>
+  <% if !@comment.persisted? %>
+  	<%= f.hidden_field :commentable_id, value: @commentable.id %>
+  	<%= f.hidden_field :commentable_type, value: @commentable.class %>
+  <% end %>
 <% end %>

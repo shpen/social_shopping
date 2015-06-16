@@ -23,7 +23,7 @@ class VotesControllerTest < ActionController::TestCase
       xhr :get, :vote, votable: @question.class, id: @question, vote: 'true'
       @question.reload
     end
-    #assert_response :unauthorized
+    assert_response :unauthorized
   end
 
   test "should succeed at voting for question" do
