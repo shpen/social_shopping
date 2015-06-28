@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :answers, except: :index
+
+    get :autocomplete_tag_name, :on => :collection
   end
 
   resources :comments, except: :index

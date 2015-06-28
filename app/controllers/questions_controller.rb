@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
   before_action :set_tags, only: :index
 
+  autocomplete :tag, :name, full: true, class_name: 'ActsAsTaggableOn::Tag'
+
   # GET /questions
   def index
     if params[:tag]
