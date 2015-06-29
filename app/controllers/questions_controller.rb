@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    if params[:tag]
+    if !params[:tag].blank?
       @questions = Question.tagged_with(params[:tag])
     else
       @questions = Question.all
