@@ -3,6 +3,7 @@
 <%= link_to 'New Question', new_question_path, class: "btn btn-primary" %>
 
 <div class="tag-cloud">
+  <%= render 'shared/tag_search', param: :tag %>
   <%= render "shared/tag_list", tags: @tags.map { |tag| tag.name }, highlight: params[:tag] %>
 </div>
 

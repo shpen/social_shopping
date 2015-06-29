@@ -29,6 +29,7 @@
       <h3>Questions (<%= @questions.count %>)</h3>
 
       <div class="user-tag-list">
+        <%= render 'shared/tag_search', param: :question_tag %>
         <%= if params[:question_tag] then link_to "Clear", @user, class: "btn btn-primary btn-xs" end %>
         <%= raw(@question_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(question_tag: tag, question_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:question_tag]}") }.join(" ")) %>
       </div>
@@ -49,6 +50,7 @@
       <h3>Answers (<%= @answers.count %>)</h3>
 
       <div class="user-tag-list">
+        <%= render 'shared/tag_search', param: :answer_tag %>
         <%= if params[:answer_tag] then link_to "Clear", @user, class: "btn btn-primary btn-xs" end %>
         <%= raw(@answer_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(answer_tag: tag, answer_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:answer_tag]}") }.join(" ")) %>
       </div>
