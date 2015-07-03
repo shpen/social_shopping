@@ -37,14 +37,14 @@ questions = Question.all
 # Answer questions
 ActiveRecord::Base.transaction do
   200.times do
-    content = "I think #{Faker::Hacker.noun.pluralize} are the best because they are the most #{Faker::Hacker.adjective}"
     link = "http://www.#{Faker::Hacker.adjective}#{Faker::Hacker.noun.pluralize}.com/product/#{(0..99999).to_a.sample}"
+    content = "I think #{Faker::Hacker.noun.pluralize} are the best because they are the most #{Faker::Hacker.adjective}\n#{link}"
 
     # Because we cannot answer our own questions, get two different users
     user_one = users.sample
     until user_one != (user_two = users.sample) && !user_two.questions.empty? do end
       
-    user_one.answers.create!(content: content, link: link, question: user_two.questions.sample)
+    user_one.answers.create!(content: content, question: user_two.questions.sample)
   end
 end
 answers = Answer.all

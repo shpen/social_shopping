@@ -9,9 +9,6 @@ class Answer < ActiveRecord::Base
   validates :user, presence: true
   validates :content, presence: true
 
-  validates :link, presence: true
-  validates :link, url: true, unless: "link.blank?"
-
   validate :user_differs_from_question_user
 
   # We cannot reply to a question that we asked ourselves

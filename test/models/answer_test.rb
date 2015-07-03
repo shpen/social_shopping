@@ -24,16 +24,6 @@ class AnswerTest < ActiveSupport::TestCase
     assert_not @answer.valid?
   end
 
-  test "link should be present" do
-    @answer.link = "  "
-    assert_not @answer.valid?
-  end
-
-  test "link should be valid" do
-    @answer.link = "wrong format"
-    assert_not @answer.valid?
-  end
-
   test "question user and answer user should be different" do
     @answer.user = @answer.question.user
     assert_not @answer.valid?

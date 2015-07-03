@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611222743) do
+ActiveRecord::Schema.define(version: 20150702010345) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20150611222743) do
     t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.string   "link"
     t.integer  "cached_votes_total", default: 0
     t.integer  "cached_votes_score", default: 0
     t.integer  "cached_votes_up",    default: 0
