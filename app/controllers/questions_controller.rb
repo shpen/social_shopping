@@ -29,6 +29,8 @@ class QuestionsController < ApplicationController
     if params[:success]
       flash.now[:success] = "Successfully shared to Facebook"
     end
+
+    @answers = sort_by(@question.answers, params[:sort])
   end
 
   # GET /questions/new

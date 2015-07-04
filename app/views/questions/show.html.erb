@@ -8,4 +8,6 @@
   </a>
 <% end %>
 
-<%= render @question.answers %>
+<%= render 'shared/sort', path_method: lambda { |params| question_path(@question, params) }, sort: :sort %>
+
+<%= render @answers %>

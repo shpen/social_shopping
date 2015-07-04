@@ -34,7 +34,7 @@
         <%= raw(@question_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(question_tag: tag, question_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:question_tag]}") }.join(" ")) %>
       </div>
 
-      <%= render 'shared/sort', context: :user, sort: :question_sort %>
+      <%= render 'shared/sort', path_method: lambda { |params| user_path(@user, params) }, sort: :question_sort %>
 
       <div class="questions">
         <%= will_paginate @questions, param_name: 'question_page' %>
@@ -55,7 +55,7 @@
         <%= raw(@answer_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(answer_tag: tag, answer_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:answer_tag]}") }.join(" ")) %>
       </div>
 
-      <%= render 'shared/sort', context: :user, sort: :answer_sort %>
+      <%= render 'shared/sort', path_method: lambda { |params| user_path(@user, params) }, sort: :answer_sort %>
 
       <div class="answers">
         <%= will_paginate @answers, param_name: 'answer_page' %>

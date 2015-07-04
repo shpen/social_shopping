@@ -49,6 +49,14 @@ ActiveRecord::Base.transaction do
 end
 answers = Answer.all
 
+# Make comments
+ActiveRecord::Base.transaction do
+  400.times do
+    commentable = [true, false].sample ? questions.sample : answers.sample
+    users.sample.comments.create!(content: Faker::Lorem.sentence(5), commentable: commentable)
+  end
+end
+
 # Vote
 ActiveRecord::Base.transaction do
   users.each do |user|

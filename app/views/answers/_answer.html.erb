@@ -9,7 +9,7 @@
   <div class="panel-body">
     <%= render "votes/vote", object: answer %>
 
-    <div class="content"><%= auto_html(answer.content) { simple_format; link(:target => 'blank') } %></div>
+    <div class="content"><%= AutoHtml::auto_html(answer.content) { simple_format; link(:target => 'blank') } %></div>
     <div class="timestamp">
       <% if current_user == answer.user %>
         <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs" %>
