@@ -1,0 +1,7 @@
+<%= render 'shared/sort', path_method: lambda { |params| questions_path(params) }, sort: :sort %>
+
+<%= will_paginate %>
+<div>
+	<%= render @questions %>
+</div>
+<%= will_paginate %>

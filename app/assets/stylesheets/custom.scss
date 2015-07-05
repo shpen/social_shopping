@@ -140,3 +140,18 @@ footer {
   margin-top: 45px;
   @include box_sizing;
 }
+
+.pagination {
+  margin: 0px;
+  float: right;
+}
+
+.ajax-loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  z-index: 9999;
+}

@@ -36,11 +36,11 @@
 
       <%= render 'shared/sort', path_method: lambda { |params| user_path(@user, params) }, sort: :question_sort %>
 
-      <div class="questions">
-        <%= will_paginate @questions, param_name: 'question_page' %>
+      <%= will_paginate @questions, param_name: 'question_page' %>
+      <div id="questions">
         <%= render @questions, hide_user_label: true %>
-        <%= will_paginate @questions, param_name: 'question_page' %>
       </div>
+      <%= will_paginate @questions, param_name: 'question_page' %>
 
     <% end %>
   </div>
@@ -57,11 +57,11 @@
 
       <%= render 'shared/sort', path_method: lambda { |params| user_path(@user, params) }, sort: :answer_sort %>
 
-      <div class="answers">
-        <%= will_paginate @answers, param_name: 'answer_page' %>
+      <%= will_paginate @answers, param_name: 'answer_page' %>
+      <div id="answers">
         <%= render @answers, hide_user_label: true %>
-        <%= will_paginate @answers, param_name: 'answer_page' %>
       </div>
+      <%= will_paginate @answers, param_name: 'answer_page' %>
       
     <% end %>
   </div>

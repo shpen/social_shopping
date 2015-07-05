@@ -9,10 +9,6 @@
 
 <%= link_to 'Friends only', questions_path(@params.merge(friends: @params[:friends] != 'true')), class: "btn btn-default #{'active' if params[:friends] == 'true'}" %>
 
-<div>
-  <%= render 'shared/sort', path_method: lambda { |params| questions_path(params) }, sort: :sort %>
-
-  <%= will_paginate %>
-  <%= render @questions %>
-  <%= will_paginate %>
+<div id="questions">
+  <%= render 'index_questions' %>
 </div>
