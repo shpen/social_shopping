@@ -11,11 +11,6 @@ class AnswersControllerTest < ActionController::TestCase
     @user_wrong = create(:user)
   end
 
-  test "should get answer" do
-    get :show, question_id: @question, id: @answer
-    assert_response :success
-  end
-
 
   # Login redirects
 
@@ -64,7 +59,7 @@ class AnswersControllerTest < ActionController::TestCase
     assert_difference 'Answer.count' do
       post :create, question_id: @question, answer: { content: "Content", link: "http://www.link.com" }
     end
-    assert_redirected_to question_answer_url(@question, Answer.last)
+    assert_redirected_to question_url(@question, answer: Answer.last)
   end
 
 
@@ -105,7 +100,7 @@ class AnswersControllerTest < ActionController::TestCase
     content = "New Content"
     put :update, question_id: @question, id: @answer, answer: { content: content }
     assert_equal content, Answer.find(@answer.id).content
-    assert_redirected_to question_answer_url(@question, @answer)
+    assert_redirected_to question_url(@question, answer: @answer)
   end
 
   test "should destroy when logged in" do

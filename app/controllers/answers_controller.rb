@@ -1,15 +1,10 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy, :up_vote, :down_vote]
-  before_action :set_question#, only: [:show, :new, :create, :edit, :update, :destroy]
-  before_action :check_ids, only: [:show, :edit, :update, :destroy]
+  before_action :set_answer, only: [:edit, :update, :destroy]
+  before_action :set_question#, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_ids, only: [:edit, :update, :destroy]
 
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :up_vote, :down_vote]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_user_ownership, only: [:edit, :update, :destroy]
-
-  # GET /questions/1/answers/1
-  def show
-    render 'questions/show'
-  end
 
   # GET /questions/1/answers/new
   def new
@@ -30,7 +25,7 @@ class AnswersController < ApplicationController
     @answer.question = @question
 
     if @answer.save
-      redirect_to question_answer_url(@question, @answer), flash: { success: 'Answer was successfully created.' }
+      redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully created.' }
     else
       render :new
     end
@@ -39,7 +34,7 @@ class AnswersController < ApplicationController
   # PATCH/PUT /questions/1/answers/1
   def update
     if @answer.update(answer_params)
-      redirect_to question_answer_url(@answer.question, @answer), flash: { success: 'Answer was successfully updated.' }
+      redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully updated.' }
     else
       render :edit
     end
@@ -49,24 +44,6 @@ class AnswersController < ApplicationController
   def destroy
     @answer.destroy
     redirect_to @question, flash: { success: 'Answer was successfully destroyed.' }
-  end
-
-  # PUT /questions/1/answers/1/up_vote
-  def up_vote
-    if current_user.up_votes @answer
-      redirect_to request.referrer || root_url
-    else
-      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote' }
-    end
-  end
-
-  # PUT /questions/1/answers/1/down_vote
-  def down_vote
-    if current_user.down_votes @answer
-      redirect_to request.referrer || root_url
-    else
-      redirect_to request.referrer || root_url, flash: { danger: 'Unable to submit vote' }
-    end
   end
 
   private

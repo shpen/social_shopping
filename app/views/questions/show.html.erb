@@ -8,6 +8,6 @@
   </a>
 <% end %>
 
-<%= render 'shared/sort', path_method: lambda { |params| question_path(@question, params) }, sort: :sort %>
-
-<%= render @answers %>
+<div id="answers" class="loading-container">
+  <%= render 'shared/paged_sorted_list', path_method: lambda { |params| question_path(@question, params) }, sort: :sort, paginatable: @answers, paginate_param_name: :page %>
+</div>

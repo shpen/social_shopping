@@ -1,0 +1,7 @@
+<%= render 'shared/sort', path_method: path_method, sort: sort %>
+
+<%= will_paginate paginatable, param_name: paginate_param_name %>
+<div>
+  <%= render @questions %>
+</div>
+<%= will_paginate paginatable, param_name: paginate_param_name %>

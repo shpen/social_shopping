@@ -35,7 +35,8 @@ class QuestionsController < ApplicationController
       flash.now[:success] = "Successfully shared to Facebook"
     end
 
-    @answers = sort_by(@question.answers, params[:sort])
+    @answers = sort_by(@question.answers, params[:sort]).paginate(page: params[:page], :per_page => 10)
+    @params = params.slice(:sort, :page)
   end
 
   # GET /questions/new

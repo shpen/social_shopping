@@ -24,10 +24,26 @@ $(document).ready(function() {
 		$(this).addClass('active');
 	});
 });
-*/
+*/	
 
+/*
 $(document).ready(function() {
 	$('.sort').click(function() {
-		$(this).parent().parent().prepend("<div class='ajax-loading'></div>");
+		$(this).parent().parent().prepend("<div class='loading-overlay'></div>");
 	});
+});
+*/
+
+function ajaxifyPaginate() {
+	$("ul.pagination li a").each(function() {
+		if ($(this).attr("href") != "#") {
+			$(this).attr("data-remote","true");
+		}
+	});
+}
+
+$(ajaxifyPaginate);
+
+$(document).on("click", ".sort", function() {
+	$(this).parent().parent().prepend("<div class='loading-overlay'></div>");
 });

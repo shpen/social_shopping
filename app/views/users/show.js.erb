@@ -1,0 +1,3 @@
+$('#questions').html('<%= j render("shared/paged_sorted_list", path_method: lambda { |params| user_path(@user, params) }, sort: :question_sort, paginatable: @questions, paginate_param_name: :question_page) %>');
+$('#answers').html('<%= j render("shared/paged_sorted_list", path_method: lambda { |params| user_path(@user, params) }, sort: :answer_sort, paginatable: @answers, paginate_param_name: :answer_page) %>');
+ajaxifyPaginate();

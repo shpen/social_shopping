@@ -34,13 +34,9 @@
         <%= raw(@question_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(question_tag: tag, question_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:question_tag]}") }.join(" ")) %>
       </div>
 
-      <%= render 'shared/sort', path_method: lambda { |params| user_path(@user, params) }, sort: :question_sort %>
-
-      <%= will_paginate @questions, param_name: 'question_page' %>
-      <div id="questions">
-        <%= render @questions, hide_user_label: true %>
+      <div id="questions" class="loading-container">
+        <%= render 'shared/paged_sorted_list', path_method: lambda { |params| user_path(@user, params) }, sort: :question_sort, paginatable: @questions, paginate_param_name: :question_page %>
       </div>
-      <%= will_paginate @questions, param_name: 'question_page' %>
 
     <% end %>
   </div>
@@ -55,13 +51,9 @@
         <%= raw(@answer_tags.map { |tag| link_to(tag, user_path(@user, @params.merge(answer_tag: tag, answer_page: nil)), class: "btn btn-default btn-xs #{'active' if tag == params[:answer_tag]}") }.join(" ")) %>
       </div>
 
-      <%= render 'shared/sort', path_method: lambda { |params| user_path(@user, params) }, sort: :answer_sort %>
-
-      <%= will_paginate @answers, param_name: 'answer_page' %>
-      <div id="answers">
-        <%= render @answers, hide_user_label: true %>
+      <div id="answers" class="loading-container">
+        <%= render 'shared/paged_sorted_list', path_method: lambda { |params| user_path(@user, params) }, sort: :answer_sort, paginatable: @answers, paginate_param_name: :answer_page %>
       </div>
-      <%= will_paginate @answers, param_name: 'answer_page' %>
       
     <% end %>
   </div>
