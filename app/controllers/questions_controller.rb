@@ -22,11 +22,6 @@ class QuestionsController < ApplicationController
     @questions = @questions.paginate(page: params[:page], :per_page => 10)
 
     @params = params.slice(:sort, :tag, :page, :friends)
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   # GET /questions/1

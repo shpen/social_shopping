@@ -34,6 +34,7 @@ $(document).ready(function() {
 });
 */
 
+// Change paginate buttons to be ajax
 function ajaxifyPaginate() {
 	$("ul.pagination li a").each(function() {
 		if ($(this).attr("href") != "#") {
@@ -44,6 +45,9 @@ function ajaxifyPaginate() {
 
 $(ajaxifyPaginate);
 
-$(document).on("click", ".sort", function() {
-	$(this).parent().parent().prepend("<div class='loading-overlay'></div>");
+// Make ajax clicks activate loading overlay
+$(document).on("click", ".sort, ul.pagination li a", function() {
+	if ($(this).attr("href") != "#") {
+		$(this).parents(".loading-container").prepend("<div class='loading-overlay'></div>");
+	}
 });
