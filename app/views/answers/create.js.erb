@@ -1,0 +1,3 @@
+$("#new-form").remove();
+var answerId = "Answer-<%= @answer.id %>";
+$("#answers .list-content").prepend('<div id=' + answerId + '><%= j render @answer %></div>');

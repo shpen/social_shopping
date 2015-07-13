@@ -25,9 +25,15 @@ class AnswersController < ApplicationController
     @answer.question = @question
 
     if @answer.save
-      redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully created.' }
+      respond_to do |format|
+        format.html { redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully created.' } }
+        format.js
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.js { render "shared/error.js", locals: { message: @answer.errors.full_messages.join("\n") } }
+      end
     end
   end
 

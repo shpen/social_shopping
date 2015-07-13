@@ -18,5 +18,7 @@ class UsersController < ApplicationController
     @answer_tags = @user.get_answer_tags.map { |tag| tag.name }
 
     @params = params.slice(:question_tag, :answer_tag, :question_page, :answer_page, :question_sort, :answer_sort)
+
+    @target = params[:target]
   end
 end
