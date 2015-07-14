@@ -45,9 +45,14 @@ function ajaxifyPaginate() {
 
 $(ajaxifyPaginate);
 
+// Activate loading overlay for certain ajax actions
+function showLoadingOverlay(rootElement) {
+	$(rootElement).parents(".loading-container").prepend("<div class='loading-overlay'></div>");
+}
+
 // Make ajax clicks activate loading overlay
 $(document).on("click", ".sort, ul.pagination li a", function() {
 	if ($(this).attr("href") != "#") {
-		$(this).parents(".loading-container").prepend("<div class='loading-overlay'></div>");
+		showLoadingOverlay(this);
 	}
 });

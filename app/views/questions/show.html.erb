@@ -1,4 +1,13 @@
-<%= render @question %>
+<div id="question-wrapper" class="loading-container">
+  <%= render @question %>
+
+  <%= render "form_ajax" %>
+</div>
+
+<div class="comments">
+  <%= render @question.comments %>
+  <%= link_to "Add comment", new_comment_path(comment: { commentable_type: Question, commentable_id: @question.id }), class: "btn btn-warning btn-xs" %>
+</div>
 
 <% if current_user != @question.user %>
   <%= link_to 'Submit Answer', new_question_answer_path(@question), class: "btn btn-primary", id: "submit-button" %>
@@ -8,7 +17,7 @@
   </a>
 <% end %>
 
-<div id="new-form" style="display: none;">
+<div id="new-form" class="well collapse">
 	<%= render "answers/form", remote: true %>
 
 	<button id="cancel-button" class="btn btn-info btn-wide">Cancel</button>

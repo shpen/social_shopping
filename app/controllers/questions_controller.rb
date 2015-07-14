@@ -35,6 +35,8 @@ class QuestionsController < ApplicationController
 
     # We initialize this here so we can create a new answer form for javascript-enabled users
     @answer = Answer.new
+
+    @editable = true
   end
 
   # GET /questions/new
@@ -61,11 +63,18 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   def update
     @question.form_saved = true
+    @editable = true
 
     if @question.update(question_params)
-      redirect_to @question, flash: { success: 'Question was successfully updated.' }
+      respond_to do |format|
+        format.html { redirect_to @question, flash: { success: 'Question was successfully updated.' } }
+        format.js
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit }
+        format.js { render "shared/error.js", locals: { message: @question.errors.full_messages.join("\n") } }
+      end
     end
   end
 

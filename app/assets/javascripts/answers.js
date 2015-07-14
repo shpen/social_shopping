@@ -4,7 +4,7 @@ $(document).on("click", "#submit-button", function() {
 	return false;
 });
 
-$(document).on("click", "#cancel-button", function() {
+$(document).on("click", "#new-form #cancel-button", function() {
   $("#new-form").hide();
   $("#submit-button").show();
   return false;

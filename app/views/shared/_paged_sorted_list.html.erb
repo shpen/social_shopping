@@ -1,7 +1,7 @@
 <%= render 'shared/sort', path_method: path_method, sort: sort %>
 
-<%= will_paginate paginatable, param_name: paginate_param_name %>
+<%= will_paginate paginatable, param_name: paginate_param_name, params: { ajax_target: sort } %>
 <div class="list-content">
   <%= render paginatable %>
 </div>
-<%= will_paginate paginatable, param_name: paginate_param_name %>
+<%= will_paginate paginatable, param_name: paginate_param_name, params: { ajax_target: sort } %>

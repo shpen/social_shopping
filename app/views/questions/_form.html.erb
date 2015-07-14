@@ -1,6 +1,6 @@
-<%= simple_form_for @question do |f| %>
+<%= simple_form_for @question, remote: defined?(remote) ? remote : false do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :tag_list, placeholder: "Comma separated list", input_html: { value: @question.all_tags_list.to_s } %>
-  <%= f.button :submit, class: 'btn-primary btn-wide' %>
+  <%= f.button :submit, class: 'btn-primary btn-wide', id: "question-submit-button" %>
 <% end %>

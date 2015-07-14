@@ -10,17 +10,10 @@
   </div>
   <div class="tag-list"><%= render "shared/tag_list", tags: question.all_tags_list, highlight: nil %></div>
   <div class="timestamp">
-    <% if current_user == question.user %>
-      <%= link_to 'Edit', edit_question_path(question), class: "btn btn-primary btn-xs" %>
+    <% if @editable && current_user == question.user %>
+      <%= link_to 'Edit', edit_question_path(question), class: "btn btn-primary btn-xs", id: "question-edit-button" %>
     <% end %>
 
     Posted <%= time_ago_in_words(question.created_at) %> ago by <%= render 'users/shared/link', user: question.user, hide_label: defined?(hide_user_label) && hide_user_label %>
   </div>
 </div>
-
-<% if current_page?(question_path(question)) %>
-  <div class="comments">
-    <%= render question.comments %>
-    <%= link_to "Add comment", new_comment_path(comment: { commentable_type: Question, commentable_id: question.id }), class: "btn btn-warning btn-xs" %>
-  </div>
-<% end %>

@@ -1,6 +1,6 @@
 <div class="btn-group btn-group-sm" role="group" aria-label="...">
   <% score_selected = params[sort] == 'lowest' || params[sort] == 'highest' || params[sort].nil? %>
-  <% params_temp = @params.merge(sort => params[sort] == 'lowest' ? 'highest' : 'lowest') %>
+  <% params_temp = @params.merge(sort => params[sort] == 'lowest' ? 'highest' : 'lowest', ajax_target: sort) %>
   <%= link_to path_method.call(params_temp), remote: true, class: "sort btn btn-default #{'active' if score_selected}" do %>
       Score 
       <% if score_selected %>
@@ -9,7 +9,7 @@
   <% end %>
 
   <% time_selected = params[sort] == 'oldest' || params[sort] == 'newest' %>
-  <% params_temp = @params.merge(sort => params[sort] == 'oldest' ? 'newest' : 'oldest') %>
+  <% params_temp = @params.merge(sort => params[sort] == 'oldest' ? 'newest' : 'oldest', ajax_target: sort) %>
   <%= link_to path_method.call(params_temp), remote: true, class: "sort btn btn-default #{'active' if time_selected}" do %>
       Time 
       <% if time_selected %>
