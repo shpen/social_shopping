@@ -1,8 +1,8 @@
-<%= simple_form_for(@comment) do |f| %>
+<%= simple_form_for(@comment, remote: defined?(remote) ? remote : false) do |f| %>
   <%= f.input :content %>
   <%= f.button :submit, class: 'btn-primary btn-wide' %>
   <% if !@comment.persisted? %>
-  	<%= f.hidden_field :commentable_id, value: @commentable.id %>
-  	<%= f.hidden_field :commentable_type, value: @commentable.class %>
+  	<%= f.hidden_field :commentable_id, value: commentable.id %>
+  	<%= f.hidden_field :commentable_type, value: commentable.class %>
   <% end %>
 <% end %>

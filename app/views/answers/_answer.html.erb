@@ -1,7 +1,5 @@
-<% question_page = current_page?(question_path(answer.question)) %>
-
 <div class="answer" id="Answer-<%= answer.id %>">
-  <% if !defined? @question %>
+  <% if !@show %>
     <div class="panel-heading">
       <%= link_to question_path(answer.question) do %>
         <h3 class="panel-title"><%= answer.question.title %></h3>
@@ -12,8 +10,9 @@
     <%= render "votes/vote", object: answer %>
 
     <div class="content"><%= AutoHtml::auto_html(answer.content) { simple_format; link(:target => 'blank') } %></div>
+    
     <div class="timestamp">
-      <% if question_page && current_user == answer.user %>
+      <% if @show && current_user == answer.user %>
         <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs" %>
       <% end %>
 
@@ -22,9 +21,6 @@
   </div>
 </div>
 
-<% if question_page %>
-  <div class="comments">
-    <%= render answer.comments %>
-    <%= link_to "Add comment", new_comment_path(comment: { commentable_type: Answer, commentable_id: answer.id }), class: "btn btn-warning btn-xs" %>
-  </div>
+<% if @show %>
+  <%= render 'comments/list', commentable: answer %>
 <% end %>

@@ -1,0 +1,3 @@
+$(".new-comment-form").remove();
+var commentId = "Comment-<%= @comment.id %>";
+$(".comments").append('<div id=' + commentId + '><%= j render @comment %></div>');

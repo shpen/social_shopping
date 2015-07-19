@@ -33,10 +33,11 @@ class QuestionsController < ApplicationController
     @answers = sort_by(@question.answers, params[:sort]).paginate(page: params[:page], :per_page => 10)
     @params = params.slice(:sort, :page)
 
-    # We initialize this here so we can create a new answer form for javascript-enabled users
+    # We initialize this here so we can create a new forms for javascript-enabled users
     @answer = Answer.new
+    @comment = Comment.new
 
-    @editable = true
+    @show = true
   end
 
   # GET /questions/new
@@ -63,7 +64,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   def update
     @question.form_saved = true
-    @editable = true
+    @show = true
 
     if @question.update(question_params)
       respond_to do |format|

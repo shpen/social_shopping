@@ -10,7 +10,7 @@
   </div>
   <div class="tag-list"><%= render "shared/tag_list", tags: question.all_tags_list, highlight: nil %></div>
   <div class="timestamp">
-    <% if @editable && current_user == question.user %>
+    <% if @show && current_user == question.user %>
       <%= link_to 'Edit', edit_question_path(question), class: "btn btn-primary btn-xs", id: "question-edit-button" %>
     <% end %>
 

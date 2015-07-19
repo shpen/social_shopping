@@ -2,5 +2,5 @@
   <%= render "form", remote: true %>
   
   <button id="question-edit-cancel-button" class="btn btn-info btn-wide">Cancel</button>
-  <%= link_to "Delete", question_path(@question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-wide", id: "delete-button", remote: true %>
+  <%= link_to "Delete", question_path(@question), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-wide" %>
 </div>
