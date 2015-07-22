@@ -71,6 +71,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Has this user answered the provided question?
+  def answered?(question)
+    Question.joins(:answers).where(questions: { id: question }, answers: { user: self }).any?
+  end
+
   def query_facebook_for_friends
     friend_data = JSON.parse(open("https://graph.facebook.com/v2.3/#{uid}/friends?access_token=#{token}").read)["data"]
     uids = []

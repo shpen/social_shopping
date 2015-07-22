@@ -1,4 +1,4 @@
-<div class="answer" id="Answer-<%= answer.id %>">
+<div class="answer" data-id="<%= answer.id %>">
   <% if !@show %>
     <div class="panel-heading">
       <%= link_to question_path(answer.question) do %>
@@ -13,14 +13,10 @@
     
     <div class="timestamp">
       <% if @show && current_user == answer.user %>
-        <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs answer-edit-button" %>
       <% end %>
 
       Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= render 'users/shared/link', user: answer.user, hide_label: defined?(hide_user_label) && hide_user_label %>
     </div>
   </div>
 </div>
-
-<% if @show %>
-  <%= render 'comments/list', commentable: answer %>
-<% end %>

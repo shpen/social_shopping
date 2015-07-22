@@ -1,0 +1,3 @@
+var answer = "<%= j render @answer %>";
+var edit_form = "<%= j render 'form_ajax', answer: @answer %>";
+$('.answer[data-id="<%= @answer.id %>"]').closest(".answer-main").html(answer + edit_form);

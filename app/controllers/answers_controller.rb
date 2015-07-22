@@ -24,13 +24,13 @@ class AnswersController < ApplicationController
     @answer = current_user.answers.build(answer_params)
     @answer.question = @question
 
-    if @answer.save
-      respond_to do |format|
+    @show = true
+
+    respond_to do |format|
+      if @answer.save
         format.html { redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully created.' } }
         format.js
-      end
-    else
-      respond_to do |format|
+      else
         format.html { render :new }
         format.js { render "shared/error.js", locals: { message: @answer.errors.full_messages.join("\n") } }
       end
@@ -39,17 +39,27 @@ class AnswersController < ApplicationController
 
   # PATCH/PUT /questions/1/answers/1
   def update
-    if @answer.update(answer_params)
-      redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully updated.' }
-    else
-      render :edit
+    @show = true
+
+    respond_to do |format|
+      if @answer.update(answer_params)
+        format.html { redirect_to question_url(@answer.question, answer: @answer), flash: { success: 'Answer was successfully updated.' } }
+        format.js
+      else
+        format.html { render :edit }
+        format.js { render "shared/error.js", locals: { message: @answer.errors.full_messages.join("\n") } }
+      end
     end
   end
 
   # DELETE /questions/1/answers/1
   def destroy
     @answer.destroy
-    redirect_to @question, flash: { success: 'Answer was successfully destroyed.' }
+
+    respond_to do |format|
+      format.html { redirect_to @question, flash: { success: 'Answer was successfully destroyed.' } }
+      format.js
+    end
   end
 
   private

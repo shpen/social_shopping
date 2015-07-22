@@ -1,0 +1,9 @@
+<div class="answer-wrapper">
+  <div class="answer-main loading-container">
+    <%= render answer %>
+
+    <%= render "answers/form_ajax", answer: answer %>
+  </div>
+
+  <%= render 'comments/list', commentable: answer %>
+</div>

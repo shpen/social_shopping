@@ -1,3 +1,2 @@
-$("#new-form").remove();
-var answerId = "Answer-<%= @answer.id %>";
-$("#answers .list-content").prepend('<div id=' + answerId + '><%= j render @answer %></div>');
+$("#new-answer-form").remove();
+$("#answers .list-content").prepend("<%= j render 'answer_full', answer: @answer %>");

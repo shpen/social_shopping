@@ -13,13 +13,11 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(content: params[:comment][:content], commentable: @commentable)
 
-    if @comment.save
-      respond_to do |format|
+    respond_to do |format|
+      if @comment.save
         format.html { redirect_to redirect_url(@commentable), flash: { success: 'Comment was successfully created.' } }
         format.js
-      end
-    else
-      respond_to do |format|
+      else
         format.html { render :new }
         format.js { render "shared/error.js", locals: { message: @comment.errors.full_messages.join("\n") } }
       end

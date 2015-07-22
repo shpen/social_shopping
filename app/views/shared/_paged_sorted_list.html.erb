@@ -2,6 +2,10 @@
 
 <%= will_paginate paginatable, param_name: paginate_param_name, params: { ajax_target: sort } %>
 <div class="list-content">
-  <%= render paginatable %>
+  <% if defined?(custom_layout) %>
+    <%= render partial: custom_layout, collection: paginatable, as: paginatable[0].class.name.downcase.intern %>
+  <% else %>
+    <%= render paginatable %>
+  <% end %>
 </div>
 <%= will_paginate paginatable, param_name: paginate_param_name, params: { ajax_target: sort } %>

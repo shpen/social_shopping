@@ -1,7 +1,9 @@
 <div class="col-sm-6 col-sm-push-3">
   <h1>Editing Answer</h1>
 
-  <%= render 'form' %>
+  <%= render @question %>
+
+  <%= render 'form', question: @question, answer: @answer %>
 
   <%= link_to request.referrer || root_url do %>
     <button class ="btn btn-info btn-wide">Cancel</button>

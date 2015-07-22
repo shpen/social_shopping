@@ -1,4 +1,4 @@
-var container = $("#<%= j params[:votable] %>-<%= j params[:id] %>")
-container.find(".glyphicon-chevron-up").css("color", "<%= j(@result ? 'orange' : 'gray') %>")
-container.find(".glyphicon-chevron-down").css("color", "<%= j((@result == false) ? 'aqua' : 'gray') %>")
-container.find(".score").html("<%= @score %>")
+var container = $('.<%= j params[:votable].downcase %>[data-id="<%= j params[:id] %>"]');
+container.find(".glyphicon-chevron-up").css("color", "<%= j(@result ? 'orange' : 'gray') %>");
+container.find(".glyphicon-chevron-down").css("color", "<%= j((@result == false) ? 'aqua' : 'gray') %>");
+container.find(".score").html("<%= @score %>");

@@ -1,0 +1,6 @@
+<div class="edit-form well collapse">
+  <%= render "answers/form", remote: true, question: @question, answer: answer %>
+  
+  <button class="answer-edit-cancel-button btn btn-info btn-wide">Cancel</button>
+  <%= link_to "Delete", question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-wide delete", remote: true %>
+</div>

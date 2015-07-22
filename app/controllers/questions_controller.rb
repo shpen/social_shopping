@@ -38,6 +38,10 @@ class QuestionsController < ApplicationController
     @comment = Comment.new
 
     @show = true
+
+    if current_user != nil
+      @answered = current_user.answered? @question
+    end
   end
 
   # GET /questions/new
@@ -66,13 +70,11 @@ class QuestionsController < ApplicationController
     @question.form_saved = true
     @show = true
 
-    if @question.update(question_params)
-      respond_to do |format|
+    respond_to do |format|
+      if @question.update(question_params)
         format.html { redirect_to @question, flash: { success: 'Question was successfully updated.' } }
         format.js
-      end
-    else
-      respond_to do |format|
+      else
         format.html { render :edit }
         format.js { render "shared/error.js", locals: { message: @question.errors.full_messages.join("\n") } }
       end

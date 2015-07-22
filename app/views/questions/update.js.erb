@@ -1,3 +1,3 @@
 var question = "<%= j render @question %>";
 var edit_form = "<%= j render 'form_ajax' %>";
-$("#question-wrapper").html(question + edit_form);
+$('.question[data-id="<%= @question.id %>"]').closest(".question-main").html(question + edit_form);

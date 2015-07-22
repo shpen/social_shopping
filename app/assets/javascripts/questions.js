@@ -1,3 +1,4 @@
+// Edit form
 $(document).on("click", "#question-edit-button", function() {
   $(".question").hide();
   $("#question-edit-form").show();
@@ -10,6 +11,6 @@ $(document).on("click", "#question-edit-cancel-button", function() {
   return false;
 });
 
-$(document).on("click", "#question-submit-button", function() {
+$(document).on("click", ".answer-submit-button", function() {
   showLoadingOverlay(this);
 });

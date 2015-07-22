@@ -47,7 +47,7 @@ $(ajaxifyPaginate);
 
 // Activate loading overlay for certain ajax actions
 function showLoadingOverlay(rootElement) {
-	$(rootElement).parents(".loading-container").prepend("<div class='loading-overlay'></div>");
+	$(rootElement).closest(".loading-container").prepend("<div class='loading-overlay'></div>");
 }
 
 // Make ajax clicks activate loading overlay
