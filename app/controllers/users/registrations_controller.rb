@@ -5,7 +5,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.provider == 'facebook'
         facebook_friends_url
       else
-        super
+        signed_in_root_path(resource)
       end
+    end
+
+    def after_update_path_for(resource)
+      signed_in_root_path(resource)
     end
 end

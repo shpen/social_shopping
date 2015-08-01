@@ -24,8 +24,17 @@ $(document).on("click", ".sort, ul.pagination li a", function() {
 // Check if user logged in, and render overlay if needed
 function checkLogin(renderOverlay) {
 	if (renderOverlay) {
-		$("#login-overlay").show();
+		showLoginOverlay()
 	}
 
 	return $("#logged-in").length > 0;
 }
+
+function showLoginOverlay() {
+	$("#login-overlay").modal('show');
+}
+
+$(document).on("click", "#login-button", function() {
+	showLoginOverlay();
+	return false;
+});

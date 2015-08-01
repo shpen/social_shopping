@@ -1,5 +1,7 @@
 // Submit form
 $(document).on("click", "#submit-button", function() {
+    if (!checkLogin(true)) { return false; }
+
     $(this).hide();
     $("#new-answer-form").show();
     return false;

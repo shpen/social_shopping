@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'questions#index'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", registrations: "users/registrations", passwords: 'users/passwords' }
   get 'users' => 'users#index'
   get 'users/:id' => 'users#show', as: :user
   get 'users/facebook_permissions' => 'users#facebook_permissions', as: :facebook_permissions
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers, except: :index
 
-    get :autocomplete_tag_name, :on => :collection
+    get :autocomplete_tag_name, on: :collection
   end
 
   resources :comments, except: :index
