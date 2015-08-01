@@ -1,4 +1,4 @@
-<div class="vote_container">
+<div class="vote-container loading-container">
   <% voted = current_user && current_user.voted_as_when_voted_for(object) %>
   <% up_color = voted ? 'orange' : 'gray' %>
   <% down_color = !voted.nil? && !voted ? 'aqua' : 'gray' %>

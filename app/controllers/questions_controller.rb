@@ -39,7 +39,7 @@ class QuestionsController < ApplicationController
 
     @show = true
 
-    if current_user != nil
+    if user_signed_in?
       @answered = current_user.answered? @question
     end
   end
