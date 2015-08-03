@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def full_title(page_title)
+    app_title = "SocialShopping"
+    page_title.empty? ? app_title : "#{page_title} | #{app_title}"
+  end
+
   def sort_by(records, sort)
     case sort
     when 'newest'

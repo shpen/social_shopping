@@ -1,26 +1,26 @@
-<div class="row">
-  <aside>
-    <section class="user_info">
-      <h1>
-        <%= @user.username %>
-      </h1>
+<% content_for :title, @user.username %>
 
-      <% if user_signed_in? && current_user != @user %>
-          <% if current_user.friends.include? @user %>
-            <span class="label label-primary">Friend</span>
-            <% if current_user.friendships.find_by(friend: @user).facebook %>
-              (<%= @user.name %> <span class="fa fa-facebook-official fa-lg"></span>)
-            <% end %>
-          <% elsif current_user.pending_friends.include? @user %>
-            <span class="label label-info">Friend requested</span>
-          <% elsif @user.pending_friends.include? current_user %>
-            <span class="label label-success">Friend requested you</span>
-          <% else %>
-            <%= link_to "Friend request", friend_request_path(@user), method: :post, class: "btn btn-primary btn-sm" %>
+<div class="row">
+  <section class="user_info">
+    <h1>
+      <%= @user.username %>
+    </h1>
+
+    <% if user_signed_in? && current_user != @user %>
+        <% if current_user.friends.include? @user %>
+          <span class="label label-primary">Friend</span>
+          <% if current_user.friendships.find_by(friend: @user).facebook %>
+            (<%= @user.name %> <span class="fa fa-facebook-official fa-lg"></span>)
           <% end %>
+        <% elsif current_user.pending_friends.include? @user %>
+          <span class="label label-info">Friend requested</span>
+        <% elsif @user.pending_friends.include? current_user %>
+          <span class="label label-success">Friend requested you</span>
+        <% else %>
+          <%= link_to "Friend request", friend_request_path(@user), method: :post, class: "btn btn-primary btn-sm" %>
         <% end %>
-    </section>
-  </aside>
+      <% end %>
+  </section>
 </div>
 
 <div class="row">
