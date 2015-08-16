@@ -1,3 +1,7 @@
+<div class="col-xs-2">
+  <%= render "votes/vote", object: answer %>
+</div>
+
 <div class="answer" data-id="<%= answer.id %>">
   <% if !@show %>
     <div class="panel-heading">
@@ -6,17 +10,26 @@
       <% end %>
     </div>
   <% end %>
-  <div class="panel-body">
-    <%= render "votes/vote", object: answer %>
 
-    <div class="content"><%= AutoHtml::auto_html(answer.content) { simple_format; link(:target => 'blank') } %></div>
-    
+  <div class="panel-body">
+    <%= AutoHtml::auto_html(answer.content) { simple_format; link(:target => 'blank') } %>
+  </div>
+
+  <% unless @show %>
+    <div class="tag-list"><%= render "shared/tag_list", tags: answer.question.all_tags_list, highlight: nil %></div>
+  <% end %>
+
+  <div class="panel-footer">
+    <img class="user-image-sm" src="https://avatars3.githubusercontent.com/u/972866" />
+
+    <%= render 'users/shared/link', user: answer.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+
     <div class="timestamp">
       <% if @show && current_user == answer.user %>
         <%= link_to 'Edit', edit_question_answer_path(answer.question, answer), class: "btn btn-primary btn-xs answer-edit-button" %>
       <% end %>
 
-      Posted <%= time_ago_in_words(answer.created_at) %> ago by <%= render 'users/shared/link', user: answer.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+      <%= time_ago_in_words(answer.created_at) %> ago
     </div>
   </div>
 </div>

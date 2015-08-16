@@ -1,11 +1,7 @@
 .answer {
 	@include question-answer-panel;
-	@extend .panel-success;
 
-	.link {
-		@extend .well;
-		padding: 5px;
-		margin: 10px;
-		display: inline-block;
+	.user-panel {
+		background-color: $brand-success;
 	}
 }

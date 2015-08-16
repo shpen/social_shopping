@@ -1,19 +1,27 @@
+<div class="col-xs-2">
+  <%= render "votes/vote", object: question %>
+</div>
 <div class="question" data-id="<%= question.id %>">
-  <div class="panel-heading">
-    <%= link_to question_path(question) do %>
-      <h3 class="panel-title"><%= question.title %></h3>
-    <% end %>
+  <div class="question-title">
+    <%= link_to_unless_current question.title, question_path(question) %>
   </div>
   <div class="panel-body">
-    <%= render "votes/vote", object: question %>
     <%= question.description %>
   </div>
-  <div class="tag-list"><%= render "shared/tag_list", tags: question.all_tags_list, highlight: nil %></div>
-  <div class="timestamp">
-    <% if @show && current_user == question.user %>
-      <%= link_to 'Edit', edit_question_path(question), class: "btn btn-primary btn-xs", id: "question-edit-button" %>
-    <% end %>
+  <% unless @show %>
+    <div class="tag-list"><%= render "shared/tag_list", tags: question.all_tags_list, highlight: nil %></div>
+  <% end %>
+  <div class="panel-footer">
+    <img class="user-image-sm" src="https://avatars3.githubusercontent.com/u/972866" />
 
-    Posted <%= time_ago_in_words(question.created_at) %> ago by <%= render 'users/shared/link', user: question.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+    <%= render 'users/shared/link', user: question.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+
+    <div class="timestamp">
+      <% if @show && current_user == question.user %>
+        <%= link_to 'Edit', edit_question_path(question), class: "btn btn-link btn-xs", id: "question-edit-button" %>
+      <% end %>
+
+      <%= time_ago_in_words(question.created_at) %> ago
+    </div>
   </div>
 </div>

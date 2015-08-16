@@ -1,12 +1,18 @@
 <div class="comment" data-id="<%= comment.id %>">
   <div class="panel-body">
-    <div class="content"><%= comment.content %></div>
+    <%= comment.content %>
+  </div>
+  <div class="panel-footer">
+    <img class="user-image-sm" src="https://avatars3.githubusercontent.com/u/972866" />
+
+    <%= render 'users/shared/link', user: comment.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+
     <div class="timestamp">
       <% if current_user == comment.user %>
         <%= link_to 'Edit', edit_comment_path(comment), class: "btn btn-primary btn-xs" %>
       <% end %>
 
-      Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= render 'users/shared/link', user: comment.user, hide_label: defined?(hide_user_label) && hide_user_label %>
+      <%= time_ago_in_words(comment.created_at) %> ago
     </div>
   </div>
 </div>

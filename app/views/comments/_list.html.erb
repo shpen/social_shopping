@@ -1,11 +1,13 @@
-<div class="comments" data-id="<%= commentable.id %>">
-  <% unless commentable.user == current_user && commentable.comments.empty? %>
-    <%= render commentable.comments %>
+<div class="row">
+  <div class="comments col-xs-9 col-xs-offset-3" data-id="<%= commentable.id %>">
+    <% unless commentable.user == current_user && commentable.comments.empty? %>
+      <%= render commentable.comments %>
 
-    <%= link_to "Add comment", new_comment_path(comment: { commentable_type: commentable.class.name, commentable_id: commentable.id }), class: "btn btn-warning btn-xs new-comment-button", data: { id: commentable.id } %>
-    
-    <div class="new-comment-form collapse">
-      <%= render 'comments/form', commentable: commentable, remote: true %>
-    </div>
-  <% end %>
+      <%= link_to "Add comment", new_comment_path(comment: { commentable_type: commentable.class.name, commentable_id: commentable.id }), class: "btn btn-warning btn-xs new-comment-button", data: { id: commentable.id } %>
+      
+      <div class="new-comment-form collapse">
+        <%= render 'comments/form', commentable: commentable, remote: true %>
+      </div>
+    <% end %>
+  </div>
 </div>

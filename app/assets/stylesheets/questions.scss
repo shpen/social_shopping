@@ -1,9 +1,15 @@
 .question {
 	@include question-answer-panel;
-	@extend .panel-info;
+
+	.question-title {
+		background-color: $brand-primary;
+		padding: 10px 20px;
+		color: #fff;
+		font-size: x-large;
+	}
 }
 
-.tag-cloud {
-	line-height: 1.9;
-	margin: 20px
+.tags {
+	margin-top: 8px;
+	//padding: 0px;
 }

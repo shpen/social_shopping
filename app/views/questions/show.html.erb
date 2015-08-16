@@ -1,32 +1,40 @@
-<div class="question-wrapper">
-  <div class="question-main loading-container">
-    <%= render @question %>
+<div class="row">
+  <div class="question-wrapper col-sm-9">
+    <div class="question-main loading-container">
+      <%= render @question %>
 
-    <%= render "form_ajax" %>
+      <%= render "form_ajax" %>
+    </div>
+
+    <%= render 'comments/list', commentable: @question %>
+
+    <% if current_user != @question.user %>
+      <% unless @answered %>
+        <%= link_to 'Submit Answer', new_question_answer_path(@question), class: "btn btn-primary", id: "submit-button" %>
+      <% end %>
+    <% else %>
+      <a href="http://www.facebook.com/dialog/send?app_id=1425246721117641&link=<%= request.original_url %>&redirect_uri=<%= request.original_url %>">
+        Share to Facebook
+      </a>
+    <% end %>
   </div>
 
-  <%= render 'comments/list', commentable: @question %>
-
-  <% if current_user != @question.user %>
-    <% unless @answered %>
-      <%= link_to 'Submit Answer', new_question_answer_path(@question), class: "btn btn-primary", id: "submit-button" %>
-    <% end %>
-  <% else %>
-    <a href="http://www.facebook.com/dialog/send?app_id=1425246721117641&link=<%= request.original_url %>&redirect_uri=<%= request.original_url %>">
-      Share to Facebook
-    </a>
-  <% end %>
+  <div class="tags col-sm-3 hidden-xs">
+    <%= render "shared/tag_list", tags: @question.all_tags_list, highlight: nil %>
+  </div>
 </div>
 
-<div id="new-answer-form" class="well collapse">
-	<%= render "answers/form", remote: true, question: @question, answer: @answer %>
+<div class="row">
+  <div id="new-answer-form" class="well collapse">
+  	<%= render "answers/form", remote: true, question: @question, answer: @answer %>
 
-	<button id="cancel-button" class="btn btn-info btn-wide">Cancel</button>
-</div>
+  	<button id="cancel-button" class="btn btn-info btn-wide">Cancel</button>
+  </div>
 
-<div id="answers" class="loading-container">
-  <%= render 'shared/paged_sorted_list',
-    path_method: lambda { |params| question_path(@question, params) },
-    sort: :sort, paginatable: @answers, paginate_param_name: :page,
-    custom_layout: "answers/answer_full" %>
+  <div id="answers" class="loading-container col-sm-9">
+    <%= render 'shared/paged_sorted_list',
+      path_method: lambda { |params| question_path(@question, params) },
+      sort: :sort, paginatable: @answers, paginate_param_name: :page,
+      custom_layout: "answers/answer_full" %>
+  </div>
 </div>
