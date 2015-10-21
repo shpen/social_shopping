@@ -1,28 +1,7 @@
-== README
+== Social Shopping
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+= A Quora/StackOverflow-like community for shopping. See: www.socialshopping.herokuapp.com
 
-Things you may want to cover:
+This is a project I was working on during the summer of 2015, but eventually scrapped. I didn't realize how frustrating and lonely it can be to work on a project alone, and when I got to the visual design stage, I was unable to come up with anything that satisfied me. Eventualy I lost interest in this project and decided to abandon it. I still believe that it is a viable product and could turn into a successful business. I just don't have the motivation to take it to that level right now.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Feel free to build on this if you're interested, or just rip out parts to use in your own Rails app.
